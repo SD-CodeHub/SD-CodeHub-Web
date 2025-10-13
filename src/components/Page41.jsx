@@ -1,6 +1,22 @@
 import React, { useState } from "react";
 import { FaLock, FaCode, FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
 import Page16 from "./Page16";
+import Food1 from "../assets/Food1.jpg";
+import Food2 from "../assets/Food2.jpg";
+import Food3 from "../assets/Food3.jpg";
+import Servilance0 from "../assets/Servilance0.jpg";
+import Servilance1 from "../assets/Servilance1.jpg";
+import Servilance2 from "../assets/Servilance2.jpg";
+import Servilance3 from "../assets/Servilace3.jpg";
+import Automation1 from "../assets/Automation1.jpg";
+import Automation2 from "../assets/Automation2.jpg";
+import Automation3 from "../assets/Automation3.jpg";
+import Trip1 from"../assets/Trip1.jpg";
+import Trip2 from"../assets/Trip2.jpg";
+import Trip3 from"../assets/Trip3.jpg";
+import Trip4 from"../assets/Trip4.jpg";
+import Trip5 from"../assets/Trip5.jpg";
+
 
 const dummyImg =
   "https://www.webstacks.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fq9c9g16o%2Fproduction%2Fe46f94c21c8de559bccf868916b5549d1011a63d-1600x840.webp&w=3840&q=100";
@@ -10,6 +26,7 @@ const dummyImg3 =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh-nDDohxKUv7mk4JvpRbuGiRCwZ583y7xeQ&s";
 const dummyImg4 =
   "https://miro.medium.com/v2/resize:fit:1400/1*O2cB1LBTdHp22-eRukNKog.png";
+ 
 
 const projects = [
   {
@@ -36,6 +53,35 @@ const projects = [
     desc: "A HIPAA-compliant healthcare management system for hospitals and clinics offering digital patient records, smart appointment scheduling, and analytics dashboards.",
     images: [dummyImg4, dummyImg3, dummyImg2, dummyImg],
   },
+  
+  {
+    title: "Food Delivery App with Real-Time Tracking",
+    category: "FoodTech / Mobile App",
+    desc: "A mobile app for ordering food with real-time delivery tracking, integrated payment gateways, and personalized recommendations based on user preferences.",
+    images: [Food1, Food2, Food3],
+  },
+  
+  {
+    title: "Live Servilance System",
+    category: "Security / AI / Real-Time Monitoring",
+    desc: "An advanced AI-driven dashboard for real-time monitoring, featuring live camera feeds, intelligent alerts for offline cameras or violence detection, audio upload analysis for screams, and proactive notifications to enhance security in environments like offices and public spaces",
+    images: [Servilance0, Servilance1, Servilance2, Servilance3],
+  },
+  
+  {
+    title: "KYC Automation Tool",
+    category: "FinTech / AI / Identity Verification",
+    desc: "A next-gen platform streamlining Know Your Customer (KYC) processes with AI-driven automation, featuring secure document uploads, real-time validation status, intelligent co-pilot suggestions, and voice-assisted agents for ASHA workers with multi-language and offline capabilities to ensure fast, compliant identity verification in the digital age.",
+    images: [Automation1, Automation2, Automation3],
+  },
+  {
+    title: "TripYatra - Travel Booking Platform",
+    category: "TravelTech / MERN Stack",
+    desc: "A comprehensive travel booking platform offering flight, hotel, and car rental services with user-friendly search, secure payments, and personalized recommendations.",
+    images: [Trip1, Trip2, Trip3, Trip4, Trip5],
+  },
+
+
 ];
 
 const Page4 = () => {
