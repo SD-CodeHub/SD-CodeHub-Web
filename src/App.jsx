@@ -1,24 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Page1 from './pages/Page1'
-import Page2 from './pages/Page2'
-import Page3 from './pages/Page3'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Page1 from "./pages/Page1";
+import Page2 from "./pages/Page2";
+import Page3 from "./pages/Page3";
+import Page4 from "./pages/Page4";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+// import Contactmodal from "./pages/Contactmodal";
+import ScrollToTop from "./components/ScrollToTop"; // ✅ Import it
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-          {/* <Page1 /> */}
-       
-       {/* <Page2/> */}
-       <Page3/>
+    <Router>
+      <ScrollToTop /> {/* ✅ Add this inside Router but outside Routes */}
+
+      <div className="pt-24 px-4 md:px-8">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Page1 />} />
+          <Route path="/about" element={<Page2 />} />
+          <Route path="/services" element={<Page3 />} />
+          <Route path="/portfolio" element={<Page4 />} />
+          {/* <Route path="/contact" element={<Contactmodal />} /> */}
+        </Routes>
+        <Footer />
       </div>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;
