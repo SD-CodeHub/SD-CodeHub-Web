@@ -1,8 +1,23 @@
 import React from 'react';
-import { FaLinkedin, FaTwitter, FaEnvelope, FaGlobe } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaLinkedin, FaEnvelope, FaGlobe, FaInstagram } from 'react-icons/fa';
 import Logo from '../assets/logo.png'; // replace with your logo
 
 const Footer = () => {
+  const connectLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Services', path: '/services' },
+    { name: 'Portfolio', path: '/portfolio' },
+  ];
+
+  const companyLinks = [
+    { name: 'About Us', path: '#' },
+    { name: 'Careers', path: '#' },
+    { name: 'Press', path: '#' },
+    { name: 'Privacy Policy', path: '#' },
+  ];
+
   return (
     <footer className="bg-gradient-to-b from-gray-50 to-gray-100 text-gray-700 pt-16 pb-8 px-6 md:px-16 lg:px-24 border-t border-gray-200">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -16,43 +31,41 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Section 2: Quick Links */}
+        {/* Section 2: Connect Links */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Connect</h3>
           <ul className="space-y-2 text-gray-600">
-            {['Home', 'About', 'Services', 'Blog'].map((item, index) => (
-              <li
-                key={index}
-                className="cursor-pointer hover:text-gray-900 hover:translate-x-1 transition-all duration-200"
-              >
-                {item}
+            {connectLinks.map((item, index) => (
+              <li key={index} className="hover:translate-x-1 transition-all duration-200">
+                <Link to={item.path} className="cursor-pointer hover:text-gray-900">
+                  {item.name}
+                </Link>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Section 3: Company */}
+        {/* Section 3: Company Links */}
         <div>
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Company</h3>
           <ul className="space-y-2 text-gray-600">
-            {['About Us', 'Careers', 'Press', 'Privacy Policy'].map((item, index) => (
-              <li
-                key={index}
-                className="cursor-pointer hover:text-gray-900 hover:translate-x-1 transition-all duration-200"
-              >
-                {item}
+            {companyLinks.map((item, index) => (
+              <li key={index} className="hover:translate-x-1 transition-all duration-200">
+                <Link to={item.path} className="cursor-pointer hover:text-gray-900">
+                  {item.name}
+                </Link>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Section 4: Connect */}
+        {/* Section 4: Social Links */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Connect</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact & Social</h3>
           <ul className="space-y-3 text-gray-600">
             <li className="flex items-center gap-2">
               <FaEnvelope className="text-gray-500" />
-              <a href="mailto:info@sdcodehub.com" className="hover:text-gray-900 transition">
+              <a href="mailto:codehubsd@gmail.com" className="hover:text-gray-900 transition">
                 codehubsd@gmail.com
               </a>
             </li>
@@ -70,7 +83,7 @@ const Footer = () => {
             <li className="flex items-center gap-2">
               <FaLinkedin className="text-gray-500" />
               <a
-                href="https://www.linkedin.com/company/sdcodehub"
+                href="https://www.linkedin.com/in/sd-codehub-97aa91389/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gray-900 transition"
@@ -79,14 +92,14 @@ const Footer = () => {
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <FaTwitter className="text-gray-500" />
+              <FaInstagram className="text-gray-500" />
               <a
-                href="https://twitter.com/sdcodehub"
+                href="https://www.instagram.com/sd_codehub/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gray-900 transition"
               >
-                Twitter
+                Instagram
               </a>
             </li>
           </ul>
@@ -97,9 +110,9 @@ const Footer = () => {
       <div className="border-t border-gray-200 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500">
         <p>Designed & Developed by <span className="font-semibold text-gray-800">SD CodeHub</span></p>
         <div className="flex gap-4 mt-4 sm:mt-0">
-          <a href="#" className="hover:text-gray-900 transition">Terms</a>
-          <a href="#" className="hover:text-gray-900 transition">Privacy</a>
-          <a href="#" className="hover:text-gray-900 transition">Cookies</a>
+          <Link to="#" className="hover:text-gray-900 transition">Terms</Link>
+          <Link to="#" className="hover:text-gray-900 transition">Privacy</Link>
+          <Link to="#" className="hover:text-gray-900 transition">Cookies</Link>
         </div>
       </div>
     </footer>

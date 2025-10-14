@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import Img1 from "../assets/image4.webp";
-import Img2 from "../assets/image5.webp";
 import Navbar from "../components/Navbar";
 import Page16 from "./Page16";
+import Img1 from "../assets/aiautomationserviece.webp";
+import Img2 from "../assets/mernservieces4.webp";
+import Img3 from "../assets/fullstackservieces.jpg";
+import Img4 from "../assets/uiuxservieces.jpg";
+import Img5 from "../assets/consultingservieses.webp";
 
 const services = [
   {
@@ -34,7 +37,7 @@ const services = [
   {
     title: "Full-Stack Solutions",
     desc: "From frontend interfaces to backend systems, we deliver complete full-stack development solutions. Our team ensures seamless integration, security, and maintainability across all platforms and technologies.",
-    img: Img1,
+    img: Img3,
     reverse: false,
     btn: "Learn More",
     details: [
@@ -47,7 +50,7 @@ const services = [
   {
     title: "UI/UX Design & Prototyping",
     desc: "Create stunning, user-centered designs with our UI/UX expertise. We focus on usability, aesthetics, and prototyping to ensure that every interaction feels intuitive and visually engaging.",
-    img: Img1,
+    img: Img4,
     reverse: true,
     btn: "Learn More",
     details: [
@@ -60,7 +63,7 @@ const services = [
   {
     title: "Technical Consulting",
     desc: "Get expert technical guidance to plan, optimize, and scale your digital ecosystem. We help you choose the right technologies, streamline architecture, and align IT strategies with business goals.",
-    img: Img1,
+    img: Img5,
     reverse: false,
     btn: "Learn More",
     details: [
@@ -147,7 +150,7 @@ const Page3 = () => {
         {selectedService && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white rounded-2xl shadow-2xl w-[90%] md:w-[60%] max-h-[80vh] overflow-y-auto p-8 relative">
-             
+             cd
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
                 {selectedService.title}
               </h2>

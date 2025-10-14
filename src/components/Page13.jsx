@@ -58,9 +58,19 @@ const Page13 = () => {
         </ul>
 
         {/* Button */}
-        <button className="mt-8 bg-gray-900 text-white px-6 py-2 rounded-full shadow-md hover:bg-gray-800 transition">
-          Let's Start
-        </button>
+     <button
+  onClick={() =>
+    window.open(
+      "https://docs.google.com/forms/d/e/1FAIpQLSdwXjgxgZbFSsouidjZUw9MjPz2KbVdKBVEho5Y2B_LyGFY4Q/viewform?usp=header",
+      "_blank",
+      "noopener,noreferrer"
+    )
+  }
+  className="mt-8 bg-gray-900 text-white px-6 py-2 rounded-full shadow-md hover:bg-gray-800 transition"
+>
+  Let's Start
+</button>
+
       </div>
     </section>
   );

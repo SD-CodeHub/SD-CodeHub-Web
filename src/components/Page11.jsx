@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import sampleImage from '../assets/image1.webp'; // replace with your image path
 
 const Page11 = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-white w-full min-h-screen flex items-start justify-center md:pt-0">
       <div className="flex flex-col md:flex-row items-center w-full">
@@ -21,9 +24,12 @@ const Page11 = () => {
             Discover the Power of SD CodeHub
           </h1>
           <p className="text-base sm:text-lg text-gray-700">
-            Unlock the full potential of your business with SD CodeHub's cutting-edge digital solutions
+            Unlock the full potential of your business with SD CodeHub's cutting-edge digital solutions.
           </p>
-          <button className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition">
+          <button
+            onClick={() => navigate('/services')}
+            className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition"
+          >
             Explore Our Services
           </button>
         </div>

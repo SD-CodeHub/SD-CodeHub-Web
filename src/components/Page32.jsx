@@ -77,9 +77,16 @@ const Page32 = () => {
           to deliver impactful software. From startups to enterprises, we ensure every project 
           reflects our commitment to <span className="font-bold">quality, trust, and innovation</span>.
         </p>
-        <button className="mt-4 bg-gray-900 text-white px-8 py-3 rounded-md hover:bg-gray-800 transition">
-          Let’s Build Together
-        </button>
+       <a
+  href="https://docs.google.com/forms/d/e/1FAIpQLSdwXjgxgZbFSsouidjZUw9MjPz2KbVdKBVEho5Y2B_LyGFY4Q/viewform?usp=header"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <button className="mt-4 bg-gray-900 text-white px-8 py-3 rounded-md hover:bg-gray-800 transition">
+    Let’s Build Together
+  </button>
+</a>
+
       </div>
     </section>
   );

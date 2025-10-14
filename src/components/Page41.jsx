@@ -16,56 +16,43 @@ import Trip2 from"../assets/Trip2.jpg";
 import Trip3 from"../assets/Trip3.jpg";
 import Trip4 from"../assets/Trip4.jpg";
 import Trip5 from"../assets/Trip5.jpg";
-
-
-const dummyImg =
-  "https://www.webstacks.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fq9c9g16o%2Fproduction%2Fe46f94c21c8de559bccf868916b5549d1011a63d-1600x840.webp&w=3840&q=100";
-const dummyImg2 =
-  "https://guptadeepak.com/content/images/size/w2000/2024/06/future-of-website-building-AI-automated.webp";
-const dummyImg3 =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh-nDDohxKUv7mk4JvpRbuGiRCwZ583y7xeQ&s";
-const dummyImg4 =
-  "https://miro.medium.com/v2/resize:fit:1400/1*O2cB1LBTdHp22-eRukNKog.png";
+import Invest1 from"../assets/investment1.png";
+import Invest2 from"../assets/investment2.png";
+import Invest3 from"../assets/investment3.png";
+import Invest4 from"../assets/investment4.png"; 
+import PT1 from"../assets/parents1.png";
+import PT2 from"../assets/parents2.png";
+import PT3 from"../assets/parents3.png";
+import PT4 from"../assets/parents4.png";
+import PT5 from"../assets/parents5.png";
+import Vendor1 from"../assets/vendor1.jpg";
+import Vendor2 from"../assets/vendor2.jpg";
+import Vendor3 from"../assets/vendor3.jpg";
+import Vendor4 from"../assets/vendor4.jpg";
+import Vendor5 from"../assets/vendor5.jpg";
+import Vendor6 from"../assets/vendor6.jpg";
  
 
 const projects = [
   {
-    title: "Nova Retail AI Platform",
-    category: "AI / E-Commerce / Automation",
-    desc: "An AI-powered retail system optimizing inventory, analyzing customer trends, and predicting market behavior with advanced machine learning models and real-time analytics.",
-    images: [dummyImg, dummyImg2, dummyImg3, dummyImg4],
-  },
-  {
-    title: "EduVerse – Online Learning Portal",
-    category: "EdTech / MERN Stack",
-    desc: "A next-gen learning platform for seamless collaboration between students and teachers, featuring interactive dashboards, real-time performance tracking, and integrated course management.",
-    images: [dummyImg2, dummyImg3, dummyImg, dummyImg4],
-  },
-  {
-    title: "FinCore Banking Dashboard",
-    category: "FinTech / Data Visualization",
-    desc: "A data-driven platform providing financial institutions with secure access to analytics, risk monitoring, and AI-generated insights for decision-making.",
-    images: [dummyImg3, dummyImg, dummyImg2, dummyImg4],
-  },
-  {
-    title: "MedEase – Healthcare Management System",
-    category: "Healthcare / Automation / Security",
-    desc: "A HIPAA-compliant healthcare management system for hospitals and clinics offering digital patient records, smart appointment scheduling, and analytics dashboards.",
-    images: [dummyImg4, dummyImg3, dummyImg2, dummyImg],
-  },
-  
+  title: "Parents–Teacher Communication Portal",
+  category: "EdTech / Web Platform",
+  desc: "A secure web platform designed to enhance communication between parents and teachers. It features student progress tracking, attendance monitoring, report generation, and direct messaging. The system promotes transparency and collaboration to support student growth and academic success.",
+  images: [PT1, PT2, PT3, PT4, PT5],
+},
+{
+  title: "Vendor Allocation & Management System",
+  category: "Enterprise / Web Application",
+  desc: "A web-based solution that streamlines vendor allocation, performance tracking, and contract management. It automates vendor selection based on predefined criteria, optimizes resource distribution, and provides analytics dashboards for better procurement decisions and operational efficiency.",
+  images: [Vendor1, Vendor2, Vendor3, Vendor4, Vendor5, Vendor6],
+},
+
+
   {
     title: "Food Delivery App with Real-Time Tracking",
     category: "FoodTech / Mobile App",
     desc: "A mobile app for ordering food with real-time delivery tracking, integrated payment gateways, and personalized recommendations based on user preferences.",
     images: [Food1, Food2, Food3],
-  },
-  
-  {
-    title: "Live Servilance System",
-    category: "Security / AI / Real-Time Monitoring",
-    desc: "An advanced AI-driven dashboard for real-time monitoring, featuring live camera feeds, intelligent alerts for offline cameras or violence detection, audio upload analysis for screams, and proactive notifications to enhance security in environments like offices and public spaces",
-    images: [Servilance0, Servilance1, Servilance2, Servilance3],
   },
   
   {
@@ -80,8 +67,19 @@ const projects = [
     desc: "A comprehensive travel booking platform offering flight, hotel, and car rental services with user-friendly search, secure payments, and personalized recommendations.",
     images: [Trip1, Trip2, Trip3, Trip4, Trip5],
   },
+{
+  title: "Smart Investment Portal",
+  category: "FinTech / Web Platform",
+  desc: "A comprehensive web platform that enables users to manage portfolios, track market trends in real time, and invest in stocks, mutual funds, or crypto assets. Features include data visualization dashboards, AI-driven insights, and secure authentication for seamless investment experiences.",
+  images: [Invest1, Invest2, Invest3, Invest4],
+},
 
-
+{
+    title: "Live Servilance System",
+    category: "Security / AI / Real-Time Monitoring",
+    desc: "An advanced AI-driven dashboard for real-time monitoring, featuring live camera feeds, intelligent alerts for offline cameras or violence detection, audio upload analysis for screams, and proactive notifications to enhance security in environments like offices and public spaces",
+    images: [Servilance0, Servilance1, Servilance2, Servilance3],
+  },
 ];
 
 const Page4 = () => {
