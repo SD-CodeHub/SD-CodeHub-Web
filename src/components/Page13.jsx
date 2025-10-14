@@ -1,6 +1,6 @@
 import React from 'react';
 import Img1 from '../assets/image4.webp';
-import Logo from '../assets/logo.Jpeg'; // Replace with your actual logo
+import Logo from '../assets/logo.jpeg'; // Replace with your actual logo
 import Icon1 from '../assets/image7.webp';
 import Icon2 from '../assets/image8.webp';
 import Icon3 from '../assets/image9.webp';
