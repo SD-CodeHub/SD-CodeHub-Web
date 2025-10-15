@@ -14,7 +14,7 @@ export default defineConfig({
       routes: [
         '/',           // Home
         '/about',      // About Page
-        '/services',   // Services Page
+        '/services',   // Services Page 
         '/portfolio',  // Portfolio Page
       ],
       lastmodDateOnly: false, // adds full datetime

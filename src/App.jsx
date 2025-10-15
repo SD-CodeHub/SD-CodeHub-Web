@@ -11,7 +11,7 @@ import Page5 from "./pages/Page5";
 
 function App() {
   return (
-    <Router>
+    <>
       <ScrollToTop /> {/* ✅ Add this inside Router but outside Routes */}
 
       <div className="pt-24 px-4 md:px-8">
@@ -26,7 +26,7 @@ function App() {
         </Routes>
         <Footer />
       </div>
-    </Router>
+    </>
   );
 }
 
