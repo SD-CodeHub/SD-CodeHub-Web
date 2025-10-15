@@ -6,7 +6,8 @@ import Page4 from "./pages/Page4";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 // import Contactmodal from "./pages/Contactmodal";
-import ScrollToTop from "./components/ScrollToTop"; // ✅ Import it
+import ScrollToTop from "./components/ScrollToTop"; 
+import Page5 from "./pages/Page5";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/services" element={<Page3 />} />
           <Route path="/portfolio" element={<Page4 />} />
           {/* <Route path="/contact" element={<Contactmodal />} /> */}
+          <Route path="/pricing" element={<Page5 />} />
         </Routes>
         <Footer />
       </div>
