@@ -5,11 +5,12 @@ import sitemap from 'vite-plugin-sitemap'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/SD-CodeHub-Web/', // 👈 GitHub repo name, important for Pages
   plugins: [
     react(),
     tailwindcss(),
     sitemap({
-      hostname: 'https://sd-codehub.netlify.app', // 👈 Your live site URL
+      hostname: 'https://SD-CodeHub.github.io/SD-CodeHub-Web', // 👈 Replace <your-username>
       routes: [
         '/',           // Home
         '/about',      // About Page
