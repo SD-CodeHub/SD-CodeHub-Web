@@ -72,12 +72,12 @@ const Footer = () => {
             <li className="flex items-center gap-2">
               <FaGlobe className="text-gray-500" />
               <a
-                href="https://sd-codehub.netlify.app/"
+                href="https://bit.ly/SD-CodeHub"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gray-900 transition"
               >
-                sd-codehub.netlify.app
+                bit.ly/SD-CodeHub
               </a>
             </li>
             <li className="flex items-center gap-2">
