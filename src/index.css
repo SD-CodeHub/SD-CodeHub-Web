@@ -1,4 +1,7 @@
 @import "tailwindcss";
+/* Reset browser default spacing */
+
+
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

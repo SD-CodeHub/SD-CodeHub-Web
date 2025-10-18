@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 // import Contactmodal from "./pages/Contactmodal";
 import ScrollToTop from "./components/ScrollToTop"; 
 import Page5 from "./pages/Page5";
+import Page6 from "./pages/Page6";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/portfolio" element={<Page4 />} />
           {/* <Route path="/contact" element={<Contactmodal />} /> */}
           <Route path="/pricing" element={<Page5 />} />
+          <Route path="/carrer" element={<Page6 />} />
         </Routes>
         <Footer />
       </div>

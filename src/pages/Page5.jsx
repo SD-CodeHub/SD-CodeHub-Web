@@ -7,6 +7,7 @@ import {
   FaBuilding,
   FaCode,
 } from "react-icons/fa";
+import Page16 from "../components/Page16";
 
 const plans = [
   {
@@ -224,6 +225,7 @@ const Page5 = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
 
   return (
+    <>
     <section className="bg-white text-black py-16 px-6 sm:px-10 lg:px-20">
       <div className="text-center mb-6">
         <h2 className="text-4xl font-bold mb-2">Our Website Plans</h2>
@@ -272,7 +274,7 @@ const Page5 = () => {
       {/* Modal Popup with blur background (detailed report) */}
       {selectedPlan && (
         <div className="fixed inset-0 backdrop-blur-sm bg-black/20 flex items-center justify-center z-50 px-4">
-<div className="bg-white text-black rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 shadow-2xl relative scrollbar-hide">
+          <div className="bg-white text-black rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 shadow-2xl relative scrollbar-hide">
             <button
               className="absolute top-3 right-4 text-gray-100 text-xl hover:text-white font-bold"
               onClick={() => setSelectedPlan(null)}
@@ -352,7 +354,33 @@ const Page5 = () => {
           </div>
         </div>
       )}
+      
     </section>
+{/* How We Work */}
+<section className="bg-gray-50 py-20 px-6 sm:px-10 lg:px-20 text-center">
+  <h2 className="text-4xl font-bold mb-6 text-black">How We Work</h2>
+  <p className="text-gray-700 text-lg max-w-3xl mx-auto mb-12">
+    Our workflow is simple and efficient — designed to help businesses go live faster and smarter.
+  </p>
+
+  <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+    {[
+      { step: "1", title: "Discuss & Plan", desc: "We understand your goals and prepare a tailored plan." },
+      { step: "2", title: "Design & Build", desc: "We design modern, responsive layouts and develop using the best tech stack." },
+      { step: "3", title: "Test & Deploy", desc: "Your project is tested across devices and deployed to hosting." },
+      { step: "4", title: "Support & Scale", desc: "We stay available for updates, analytics, and scaling needs." },
+    ].map((item, i) => (
+      <div key={i} className="bg-white border border-gray-200 rounded-2xl p-8 shadow-md hover:shadow-xl transition-all">
+        <div className="text-4xl font-bold text-black mb-3">{item.step}</div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-1">{item.title}</h3>
+        <p className="text-gray-700 text-sm leading-relaxed">{item.desc}</p>
+      </div>
+    ))}
+  </div>
+</section>
+<Page16 />
+
+</>
   );
 };
 

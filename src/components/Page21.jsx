@@ -11,12 +11,20 @@ import {
   FaPaintBrush,
   FaCode,
   FaCheckCircle,
-  FaHeadset
+  FaHeadset,
+  FaLaptopCode,
+  FaGraduationCap,
+  FaShoppingCart,
+  FaBuilding,
+  FaHospital,
+  FaChartLine
 } from "react-icons/fa";
 import Page16 from "./Page16";
 import CEO1 from "../assets/swapnil_SD_Codehub.jpg";
 import CEO2 from "../assets/sachin_SD_CodeHub.jpg";
 import ChiefClient from "../assets/sanika_SD_Codehub.jpg";
+import { Link } from "react-router-dom";
+
 
 const AboutPage = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -227,8 +235,7 @@ const AboutPage = () => {
         </div>
       </section>
 
----
-      {/* Team Section */}
+{/*       Team Section
       <section className="py-20 px-6 sm:px-10 lg:px-20 bg-gray-50">
         <div className="text-center mb-14">
           <h2 className="text-4xl font-bold mb-3">Meet Our Leadership</h2>
@@ -283,9 +290,87 @@ const AboutPage = () => {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
----
+{/* --- Replaced Leadership Section with Industries Section --- */}
+<section className="py-20 px-6 sm:px-10 lg:px-20 bg-gray-50">
+  <div className="text-center mb-14">
+    <h2 className="text-4xl font-bold mb-3">Industries We Serve</h2>
+    <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+      At SD CodeHub, we build customized digital solutions for diverse industries —
+      empowering every business to grow, automate, and scale with technology.
+    </p>
+  </div>
+
+  <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+  {[
+    {
+      title: "Tech Startups",
+      desc: "Helping startups go from idea to launch with fast, scalable MVPs built using MERN and AI tools.",
+      icon: FaLaptopCode,
+    },
+    {
+      title: "Education",
+      desc: "Creating e-learning platforms, dashboards, and LMS systems that make learning accessible and engaging.",
+      icon: FaGraduationCap,
+    },
+    {
+      title: "E-Commerce",
+      desc: "Building secure, high-performance online stores with personalized recommendations and analytics.",
+      icon: FaShoppingCart,
+    },
+    {
+      title: "Real Estate",
+      desc: "Developing property listing platforms, automation tools, and CRM systems for agents and builders.",
+      icon: FaBuilding,
+    },
+    {
+      title: "Healthcare",
+      desc: "Designing health portals and AI-based tracking systems for clinics and wellness startups.",
+      icon: FaHospital,
+    },
+    {
+      title: "Finance & Automation",
+      desc: "Delivering smart dashboards, automation bots, and AI analytics tools for modern fintech growth.",
+      icon: FaChartLine,
+    },
+  ].map((industry, i) => {
+    const IconComponent = industry.icon;
+    return (
+      <div
+        key={i}
+        className="bg-white border border-gray-200 rounded-2xl p-8 text-center shadow-md hover:shadow-xl transition-shadow duration-300"
+      >
+        <div className="flex justify-center mb-4">
+          <IconComponent className="text-5xl text-black" />
+        </div>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">{industry.title}</h3>
+        <p className="text-gray-700 text-sm leading-relaxed">{industry.desc}</p>
+      </div>
+    );
+  })}
+</div>
+
+
+  {/* --- Call-to-Action Section --- */}
+  <div className="text-center mt-20">
+    <h3 className="text-2xl font-bold text-gray-900 mb-4">
+      Interested in working with us?
+    </h3>
+    <p className="text-gray-600 mb-6">
+      We’re always open to collaborating with talented individuals and innovative businesses.
+    </p>
+    <Link
+  to="/career"
+  className="inline-block bg-black text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-gray-800 transition-all"
+>
+  Contact Us
+</Link>
+
+  </div>
+</section>
+
+
       {/* FAQ Section */}
       <section className="py-20 px-6 sm:px-10 lg:px-20">
         <div className="text-center mb-14">
