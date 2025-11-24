@@ -8,7 +8,7 @@ const FullScreenTopStartPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-screen h-screen md:h-[80vh] bg-white flex items-center justify-center px-6">
+    <div className="w-screen md:w-[95vw] h-screen md:h-[80vh] bg-white flex items-center justify-center px-6">
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
         {/* Left Side - Text */}
