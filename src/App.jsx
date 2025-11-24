@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop"; 
 import Page5 from "./pages/Page5";
 import Page6 from "./pages/Page6";
+import ChatBot from "./components/ChatBot";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         </Routes>
         <Footer />
       </div>
+       <ChatBot />
     </>
   );
 }
