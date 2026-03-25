@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://SD-CodeHub.github.io/SD-CodeHub-Web/sitemap.xml
+Sitemap: https://sdcodehub.tech/sitemap.xml
