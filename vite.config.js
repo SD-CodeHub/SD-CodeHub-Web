@@ -3,23 +3,22 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import sitemap from 'vite-plugin-sitemap'
 
-// https://vite.dev/config/
 export default defineConfig({
-  base: '/SD-CodeHub-Web/', // 👈 GitHub repo name, important for Pages
+  base: '/', // ✅ FIXED for custom domain
   plugins: [
     react(),
     tailwindcss(),
     sitemap({
-      hostname: 'https://SD-CodeHub.github.io/SD-CodeHub-Web', // 👈 Replace <your-username>
+      hostname: 'https://sdcodehub.tech', // ✅ your real domain
       routes: [
-        '/',           // Home
-        '/about',      // About Page
-        '/services',   // Services Page 
-        '/portfolio',  // Portfolio Page
+        '/',
+        '/about',
+        '/services',
+        '/portfolio',
       ],
-      lastmodDateOnly: false, // adds full datetime
-      changefreq: 'weekly',   // SEO hint
-      priority: 0.8           // Default priority for all routes
+      lastmodDateOnly: false,
+      changefreq: 'weekly',
+      priority: 0.8
     })
   ],
 })
