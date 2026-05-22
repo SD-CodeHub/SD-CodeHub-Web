@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import sitemap from 'vite-plugin-sitemap'
 
 export default defineConfig({
-  base: '/SD-CodeHub-Web/', // IMPORTANT
+  base: '/', // IMPORTANT
 
   plugins: [
     react(),
