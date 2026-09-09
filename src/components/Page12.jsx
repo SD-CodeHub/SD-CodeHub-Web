@@ -1,81 +1,84 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import TopLeftImg from "../assets/image2.webp"; // top-left image
-import LaptopImg from "../assets/image3.webp"; // laptop image
+import Reveal from "./ui/Reveal";
+import CTA, { ENQUIRY_FORM } from "./ui/Button";
+import { Eyebrow } from "./ui/Section";
+import DetailImg from "../assets/image2.webp";
+import MainImg from "../assets/image3.webp";
 
-const Page12 = () => {
-  const navigate = useNavigate();
-
+export default function Page12() {
   return (
-    <section className="relative min-h-screen bg-white w-full">
-      <div className="flex flex-col md:flex-row min-h-screen relative z-10">
+    <section className="rule relative bg-ink py-20 md:py-28 lg:py-32">
+      <div className="shell">
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+          {/* ---- Statement ---- */}
+          <div className="lg:col-span-5 lg:pt-6">
+            <Reveal>
+              <Eyebrow index="02">What we do</Eyebrow>
+            </Reveal>
 
-        {/* Block 1: Top-left decorative image */}
-        <div className="hidden md:flex md:w-1/5 justify-start items-start relative">
-          <img
-            src={TopLeftImg}
-            alt="Top Left Decorative"
-            className="absolute top-0 left-0 w-40 h-100 md:w-56 md:h-auto object-cover pointer-events-none animate-float rounded-r-xl"
-          />
-        </div>
-
-        {/* Block 2: Text content */}
-        <div className="w-full md:w-2/5 flex flex-col justify-center items-start px-6 md:px-12 space-y-6 mt-12 md:mt-0">
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
-            Innovative Solutions <br />
-            for Thriving <br /> Businesses
-          </h2>
-
-          <p className="text-gray-600 text-base md:text-lg leading-relaxed">
-            5D CodeHub specializes in crafting customized digital solutions that
-            elevate our clients’ brands.
-          </p>
-
-          <p className="text-gray-700 text-sm md:text-base tracking-wide">
-            Empowering Businesses to Succeed
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            {/* Get Started Button */}
-           <button
-  onClick={() =>
-    window.open(
-      "https://docs.google.com/forms/d/e/1FAIpQLSdwXjgxgZbFSsouidjZUw9MjPz2KbVdKBVEho5Y2B_LyGFY4Q/viewform?usp=header",
-      "_blank",
-      "noopener,noreferrer"
-    )
-  }
-  className="bg-gray-900 text-white px-6 py-2 rounded-md hover:bg-gray-800 transition w-full sm:w-auto text-center"
->
-  Get Started
-</button>
-
-
-            {/* Discover More Button */}
-            <button
-              onClick={() => navigate("/portfolio")}
-              className="flex items-center gap-2 text-white hover:text-gray-200 transition w-full sm:w-auto justify-center sm:justify-start"
-            >
-              Discover More
-              <span className="w-6 h-6 flex items-center justify-center bg-gray-900 text-white rounded-full text-sm">
-                →
+            <Reveal as="h2" delay={80} className="display mt-7 text-[clamp(2rem,4.4vw,3.25rem)]">
+              <span className="mask-line">
+                <span>Innovative solutions</span>
               </span>
-            </button>
+              <span className="mask-line">
+                <span style={{ transitionDelay: "90ms" }}>for thriving</span>
+              </span>
+              <span className="mask-line">
+                <span style={{ transitionDelay: "180ms" }}>businesses.</span>
+              </span>
+            </Reveal>
+
+            <Reveal delay={160}>
+              <p className="lede mt-7 max-w-md text-base md:text-lg">
+                SD CodeHub specializes in crafting customized digital solutions
+                that elevate our clients’ brands.
+              </p>
+            </Reveal>
+
+            <Reveal delay={220}>
+              <p className="mt-6 font-display text-lg tracking-tight text-accent">
+                Empowering businesses to succeed.
+              </p>
+            </Reveal>
+
+            <Reveal delay={280}>
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <CTA href={ENQUIRY_FORM}>Get started</CTA>
+                <CTA to="/portfolio" variant="ghost">
+                  Discover more
+                </CTA>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* ---- Composition ---- */}
+          <div className="lg:col-span-7">
+            <Reveal className="relative">
+              <div className="relative border border-white/12 bg-ink-2 p-2">
+                <img
+                  src={MainImg}
+                  alt="SD CodeHub web application shown on a laptop"
+                  loading="lazy"
+                  className="aspect-[4/3] w-full object-cover"
+                />
+              </div>
+
+              <div className="absolute -bottom-10 -left-4 hidden w-40 border border-white/15 bg-ink-2 p-1.5 shadow-2xl shadow-black/50 md:block lg:-left-10 lg:w-48">
+                <img
+                  src={DetailImg}
+                  alt="Interface detail from a recent build"
+                  loading="lazy"
+                  className="aspect-[3/4] w-full object-cover"
+                />
+              </div>
+
+              <div
+                className="absolute -right-3 -top-3 hidden h-24 w-24 border-r border-t border-accent/60 lg:block"
+                aria-hidden="true"
+              />
+            </Reveal>
           </div>
         </div>
-
-        {/* Block 3: Laptop image */}
-        <div className="w-full md:w-2/5 flex justify-center items-center mt-8 md:mt-0 px-6 md:px-0">
-          <img
-            src={LaptopImg}
-            alt="Laptop mockup"
-            className="w-full lg:w-[90%] h-auto md:h-[60vh] object-contain max-w-lg rounded-lg"
-          />
-        </div>
-
       </div>
     </section>
   );
-};
-
-export default Page12;
+}

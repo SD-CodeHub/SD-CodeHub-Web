@@ -1,79 +1,107 @@
-import React from 'react';
-import Img1 from '../assets/image4.webp';
-import Logo from '../assets/logo.jpeg'; // Replace with your actual logo
-import Icon1 from '../assets/image7.webp';
-import Icon2 from '../assets/image8.webp';
-import Icon3 from '../assets/image9.webp';
-import Icon4 from '../assets/image7.webp'; // Reused icon
+import { Link } from "react-router-dom";
+import Reveal from "./ui/Reveal";
+import { Eyebrow } from "./ui/Section";
+import { ENQUIRY_FORM } from "./ui/Button";
+import AppImg from "../assets/image4.webp";
 
-const Page13 = () => {
-  const listItems = [
-    { icon: Icon1, text: 'Explore Partnerships' },
-    { icon: Icon2, text: 'Discover' },
-    { icon: Icon3, text: 'Learn More' },
-    { icon: Icon4, text: 'Get in Touch' },
-  ];
+/** The four partnership entry points, each pointing somewhere real. */
+const paths = [
+  { label: "Explore Partnerships", to: "/about", note: "How we work with clients" },
+  { label: "Discover", to: "/portfolio", note: "Projects we have shipped" },
+  { label: "Learn More", to: "/services", note: "Services and capabilities" },
+  { label: "Get in Touch", href: ENQUIRY_FORM, note: "Tell us about your project" },
+];
 
+export default function Page13() {
   return (
-    <section className="min-h-screen bg-white flex flex-col lg:flex-row items-center justify-between px-6 md:px-16 py-12 gap-12">
-      
-      {/* LEFT SIDE - Logo and Phone aligned at bottom */}
-      <div className="w-full lg:w-1/2 flex items-end justify-center gap-6">
-        {/* Logo on left side */}
-      <img
-  src={Logo}
-  alt="Company Logo"
-  className="w-20 h-20 md:w-30 md:h-30 object-contain rounded-full shadow-md"
-/>
+    <section className="rule relative overflow-hidden bg-ink-2 py-20 md:py-28 lg:py-32">
+      <div className="shell">
+        <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-20">
+          {/* ---- Product shot ---- */}
+          <Reveal className="relative order-2 lg:order-1">
+            <div className="relative mx-auto max-w-sm">
+              <div
+                className="absolute inset-x-8 bottom-0 top-16 border border-white/10 bg-ink"
+                aria-hidden="true"
+              />
+              <img
+                src={AppImg}
+                alt="Mobile application built by SD CodeHub"
+                loading="lazy"
+                className="relative w-full object-contain float-soft"
+              />
+            </div>
+          </Reveal>
 
+          {/* ---- Copy ---- */}
+          <div className="order-1 lg:order-2">
+            <Reveal>
+              <Eyebrow index="03">Collaboration</Eyebrow>
+            </Reveal>
 
-        {/* Phone Image on right side */}
-        <div className=" rounded-3xl p-4 flex justify-center items-center w-[280px] md:w-[340px]">
-          <img
-            src={Img1}
-            alt="App Mockup"
-            className="w-full h-auto object-contain rounded-2xl"
-          />
+            <Reveal as="h2" delay={80} className="display mt-7 text-[clamp(2rem,4.4vw,3.25rem)]">
+              Partnering for success
+            </Reveal>
+
+            <Reveal delay={140}>
+              <p className="lede mt-6 max-w-md text-base md:text-lg">
+                At SD CodeHub, we believe that true success is achieved through
+                meaningful partnerships and collaboration.
+              </p>
+            </Reveal>
+
+            <Reveal delay={200}>
+              <ul className="mt-10 divide-y divide-white/10 border-y border-white/10">
+                {paths.map((item, i) => {
+                  const content = (
+                    <>
+                      <span className="label w-8 shrink-0 text-[0.6rem]">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="flex-1">
+                        <span className="font-display text-lg tracking-tight">
+                          {item.label}
+                        </span>
+                        <span className="mt-0.5 block text-sm text-[var(--muted)]">
+                          {item.note}
+                        </span>
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] group-hover:translate-x-1"
+                      >
+                        →
+                      </span>
+                    </>
+                  );
+
+                  const cls =
+                    "group flex w-full items-center gap-4 py-5 text-left transition-colors duration-300 hover:text-accent";
+
+                  return (
+                    <li key={item.label}>
+                      {item.to ? (
+                        <Link to={item.to} className={cls}>
+                          {content}
+                        </Link>
+                      ) : (
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={cls}
+                        >
+                          {content}
+                        </a>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </Reveal>
+          </div>
         </div>
-      </div>
-
-      {/* RIGHT SIDE - Text + Icons */}
-      <div className="w-full lg:w-1/2 text-center lg:text-left flex flex-col justify-center items-center lg:items-start">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Partnering for Success
-        </h1>
-        <p className="text-gray-600 text-base md:text-lg mb-8 max-w-md">
-          At SD CodeHub, we believe that true success is achieved through meaningful
-          partnerships and collaboration.
-        </p>
-
-        {/* List of items */}
-        <ul className="flex flex-col gap-4">
-          {listItems.map((item, index) => (
-            <li key={index} className="flex items-center gap-3">
-              <img src={item.icon} alt="" className="w-8 h-8" />
-              <span className="text-gray-800 text-lg font-medium">{item.text}</span>
-            </li>
-          ))}
-        </ul>
-
-        {/* Button */}
-     <button
-  onClick={() =>
-    window.open(
-      "https://docs.google.com/forms/d/e/1FAIpQLSdwXjgxgZbFSsouidjZUw9MjPz2KbVdKBVEho5Y2B_LyGFY4Q/viewform?usp=header",
-      "_blank",
-      "noopener,noreferrer"
-    )
-  }
-  className="mt-8 bg-gray-900 text-white px-6 py-2 rounded-full shadow-md hover:bg-gray-800 transition"
->
-  Let's Start
-</button>
-
       </div>
     </section>
   );
-};
-
-export default Page13;
+}

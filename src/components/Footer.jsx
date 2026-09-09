@@ -1,122 +1,144 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaLinkedin, FaEnvelope, FaGlobe, FaInstagram } from 'react-icons/fa';
-import Logo from '../assets/logo.png'; // replace with your logo
+import { Link } from "react-router-dom";
+import { FaLinkedin, FaEnvelope, FaGlobe, FaInstagram } from "react-icons/fa";
+import Logo from "../assets/logo.png";
+import { ENQUIRY_FORM, CAREERS_FORM, WHATSAPP } from "./ui/Button";
 
-const Footer = () => {
-  const connectLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Services', path: '/services' },
-    { name: 'Portfolio', path: '/portfolio' },
-  ];
+const explore = [
+  { name: "Home", to: "/" },
+  { name: "About", to: "/about" },
+  { name: "Services", to: "/services" },
+  { name: "Work", to: "/portfolio" },
+  { name: "Pricing", to: "/pricing" },
+  { name: "Careers", to: "/careers" },
+];
 
-  const companyLinks = [
-    { name: 'About Us', path: '#' },
-    { name: 'Careers', path: '#' },
-    { name: 'Press', path: '#' },
-    { name: 'Privacy Policy', path: '#' },
-  ];
+const company = [
+  { name: "Start a project", href: ENQUIRY_FORM },
+  { name: "Apply for a role", href: CAREERS_FORM },
+  { name: "Chat on WhatsApp", href: WHATSAPP },
+];
 
+const social = [
+  { name: "codehubsd@gmail.com", href: "mailto:codehubsd@gmail.com", icon: FaEnvelope },
+  { name: "bit.ly/SD-CodeHub", href: "https://bit.ly/SD-CodeHub", icon: FaGlobe },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/sd-codehub-97aa91389/", icon: FaLinkedin },
+  { name: "Instagram", href: "https://www.instagram.com/sd_codehub/", icon: FaInstagram },
+];
+
+export default function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-gray-50 to-gray-100 text-gray-700 pt-16 pb-8 px-6 md:px-16 lg:px-24 border-t border-gray-200">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
-        
-        {/* Section 1: Logo + copyright */}
-        <div className="flex flex-col items-start space-y-4">
-          <img src={Logo} alt="SD CodeHub Logo" className="w-32 h-auto rounded-md" />
-          <p className="text-gray-500 text-sm leading-relaxed">
-            © {new Date().getFullYear()} <span className="font-semibold text-gray-800">SD CodeHub</span> <br />
-            All rights reserved.
-          </p>
-        </div>
+    <footer className="rule relative overflow-hidden bg-ink-2 pt-20 md:pt-24">
+      <div className="shell">
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
+          {/* Identity */}
+          <div className="lg:col-span-4">
+            <img
+              src={Logo}
+              alt="SD CodeHub"
+              className="h-14 w-auto object-contain mix-blend-screen invert"
+            />
+            <p className="lede mt-6 max-w-xs text-sm">
+              AI automation, MERN and full-stack development, UI/UX design and
+              technical consulting — built in Navi Mumbai, delivered anywhere.
+            </p>
+          </div>
 
-        {/* Section 2: Connect Links */}
-        <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Connect</h3>
-          <ul className="space-y-2 text-gray-600">
-            {connectLinks.map((item, index) => (
-              <li key={index} className="hover:translate-x-1 transition-all duration-200">
-                <Link to={item.path} className="cursor-pointer hover:text-gray-900">
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+          {/* Explore */}
+          <nav aria-label="Footer" className="lg:col-span-3">
+            <h2 className="label text-[0.6rem]">Explore</h2>
+            <ul className="mt-6 space-y-3">
+              {explore.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    to={item.to}
+                    className="link-underline text-sm text-[var(--muted)] transition-colors hover:text-[var(--text)]"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        {/* Section 3: Company Links */}
-        <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Company</h3>
-          <ul className="space-y-2 text-gray-600">
-            {companyLinks.map((item, index) => (
-              <li key={index} className="hover:translate-x-1 transition-all duration-200">
-                <Link to={item.path} className="cursor-pointer hover:text-gray-900">
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+          {/* Work with us */}
+          <div className="lg:col-span-2">
+            <h2 className="label text-[0.6rem]">Work with us</h2>
+            <ul className="mt-6 space-y-3">
+              {company.map((item) => (
+                <li key={item.name}>
+                  {item.to ? (
+                    <Link
+                      to={item.to}
+                      className="link-underline text-sm text-[var(--muted)] transition-colors hover:text-[var(--text)]"
+                    >
+                      {item.name}
+                    </Link>
+                  ) : (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-underline text-sm text-[var(--muted)] transition-colors hover:text-[var(--text)]"
+                    >
+                      {item.name}
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* Section 4: Social Links */}
-        <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact & Social</h3>
-          <ul className="space-y-3 text-gray-600">
-            <li className="flex items-center gap-2">
-              <FaEnvelope className="text-gray-500" />
-              <a href="mailto:codehubsd@gmail.com" className="hover:text-gray-900 transition">
-                codehubsd@gmail.com
+          {/* Contact & social */}
+          <div className="lg:col-span-3">
+            <h2 className="label text-[0.6rem]">Contact &amp; social</h2>
+            <ul className="mt-6 space-y-3">
+              {social.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <li key={item.name}>
+                    <a
+                      href={item.href}
+                      target={item.href.startsWith("http") ? "_blank" : undefined}
+                      rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="group inline-flex items-center gap-3 text-sm text-[var(--muted)] transition-colors hover:text-[var(--text)]"
+                    >
+                      <Icon
+                        className="text-base transition-colors group-hover:text-accent"
+                        aria-hidden="true"
+                      />
+                      <span className="link-underline">{item.name}</span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+            <address className="mt-6 not-italic text-sm text-[var(--muted)]">
+              <a href="tel:+919930994315" className="link-underline hover:text-[var(--text)]">
+                +91 99309 94315
               </a>
-            </li>
-            <li className="flex items-center gap-2">
-              <FaGlobe className="text-gray-500" />
-              <a
-                href="https://bit.ly/SD-CodeHub"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-gray-900 transition"
-              >
-                bit.ly/SD-CodeHub
-              </a>
-            </li>
-            <li className="flex items-center gap-2">
-              <FaLinkedin className="text-gray-500" />
-              <a
-                href="https://www.linkedin.com/in/sd-codehub-97aa91389/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-gray-900 transition"
-              >
-                LinkedIn
-              </a>
-            </li>
-            <li className="flex items-center gap-2">
-              <FaInstagram className="text-gray-500" />
-              <a
-                href="https://www.instagram.com/sd_codehub/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-gray-900 transition"
-              >
-                Instagram
-              </a>
-            </li>
-          </ul>
+              <br />
+              Navi Mumbai, Maharashtra, India
+            </address>
+          </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-gray-200 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500">
-        <p>Designed & Developed by <span className="font-semibold text-gray-800">SD CodeHub</span></p>
-        <div className="flex gap-4 mt-4 sm:mt-0">
-          <Link to="#" className="hover:text-gray-900 transition">Terms</Link>
-          <Link to="#" className="hover:text-gray-900 transition">Privacy</Link>
-          <Link to="#" className="hover:text-gray-900 transition">Cookies</Link>
+      {/* Oversized wordmark, clipped at the base — a quiet sign-off */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none mt-16 select-none overflow-hidden md:mt-20"
+      >
+        <p className="display translate-y-[14%] whitespace-nowrap text-center text-[11vw] leading-[0.8] text-white/[0.05]">
+          SD CodeHub
+        </p>
+      </div>
+
+      <div className="rule">
+        <div className="shell flex flex-col items-center justify-between gap-3 py-6 text-xs text-[var(--muted)] sm:flex-row">
+          <p>© {new Date().getFullYear()} SD CodeHub. All rights reserved.</p>
+          <p>Designed &amp; developed by SD CodeHub.</p>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

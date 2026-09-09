@@ -12,7 +12,7 @@ export default defineConfig({
 
     sitemap({
       hostname: 'https://sdcodehub.tech',
-      routes: ['/', '/about', '/services', '/portfolio'],
+      routes: ['/', '/about', '/services', '/portfolio', '/pricing', '/careers'],
     }),
   ],
 })

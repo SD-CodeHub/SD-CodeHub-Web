@@ -1,100 +1,398 @@
 @import "tailwindcss";
-/* Reset browser default spacing */
 
+/* ==========================================================================
+   SD CodeHub — Design System
+   An engineering studio: ink surfaces, precise grid, a single warm accent.
+   ========================================================================== */
 
+@theme {
+  --color-ink: #0a0a0b;
+  --color-ink-2: #111114;
+  --color-ink-3: #17171b;
+  --color-paper: #f5f4f1;
+  --color-accent: #e3b04b;
+  --color-accent-dim: #8a6b28;
+
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+}
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --text: #ededea;
+  --muted: #9d9d99;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: white;
-
+  color-scheme: dark;
+  font-family: var(--font-sans);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
-/* Medium screens */
-@media (max-width: 1024px) {
-  h1 {
-    font-size: 2.8em;
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--text);
+  /* `clip` rather than `hidden`: it contains stray overflow without creating a
+     scroll container, so `position: sticky` keeps working further down. */
+  overflow-x: clip;
+}
+
+/* Utility classes such as `flex` would otherwise beat the UA rule for [hidden]. */
+[hidden] {
+  display: none !important;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #0a0a0b;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Layout primitives
+   -------------------------------------------------------------------------- */
+
+.shell {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    padding-inline: 2.5rem;
   }
 }
 
-/* Small screens */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2.2em;
+@media (min-width: 1280px) {
+  .shell {
+    padding-inline: 3.5rem;
   }
 }
 
-/* Extra small screens */
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.8em;
+.rule {
+  border-top: 1px solid var(--line);
+}
+
+/* Faint engineering grid — used behind hero / feature bands */
+.grid-field {
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 20%, transparent 78%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 20%, transparent 78%);
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* --------------------------------------------------------------------------
+   Type utilities
+   -------------------------------------------------------------------------- */
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.lede {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* --------------------------------------------------------------------------
+   Scroll reveal (driven by IntersectionObserver in <Reveal />)
+   -------------------------------------------------------------------------- */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Character/word mask reveal for headlines */
+.mask-line {
+  display: block;
+  overflow: hidden;
+}
+
+.mask-line > span {
+  display: block;
+  transform: translateY(105%);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="in"] .mask-line > span,
+.mask-line.is-in > span {
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Interaction
+   -------------------------------------------------------------------------- */
+
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
+/* Cards that lift on a hairline border rather than a shadow blob */
+.card {
+  position: relative;
+  background: var(--color-ink-2);
+  border: 1px solid var(--line);
+  transition: border-color 0.4s ease, background-color 0.4s ease,
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover {
+  border-color: var(--line-strong);
+  background: var(--color-ink-3);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
   }
 }
 
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@keyframes scroll-hint {
+  0% {
+    transform: translateY(-100%);
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+  100% {
+    transform: translateY(100%);
   }
 }
-/* Hide scrollbar but keep scroll functionality */
+
+.scroll-hint::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent, var(--color-accent), transparent);
+  animation: scroll-hint 2.4s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Architecture diagram — connectors draw themselves, then data flows along them.
+   Every path carries pathLength="1", so dash values are fractions of its length.
+   -------------------------------------------------------------------------- */
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.draw-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--draw-delay, 0ms);
+}
+
+@keyframes flow {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.flow-line {
+  stroke-dasharray: 0.07 0.93;
+  animation: flow 3.4s linear infinite;
+  animation-delay: var(--flow-delay, 0ms);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Children are drawn around the origin, so rotating about 0 0 is the centre. */
+.gear-spin {
+  transform-origin: 0 0;
+  animation: spin 16s linear infinite;
+}
+
+.gear-spin-reverse {
+  transform-origin: 0 0;
+  animation: spin 11s linear infinite reverse;
+}
+
+@keyframes db-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.db-ring {
+  animation: db-pulse 2.8s ease-in-out infinite;
+  animation-delay: var(--ring-delay, 0ms);
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float-soft {
+  animation: float-soft 7s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* --------------------------------------------------------------------------
+   Utilities
+   -------------------------------------------------------------------------- */
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
 .scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-@keyframes pulse-slow {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.07); opacity: 0.9; }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.animate-pulse-slow {
-  animation: pulse-slow 2.5s infinite;
-}
+/* --------------------------------------------------------------------------
+   Reduced motion — content stays fully usable, movement stops
+   -------------------------------------------------------------------------- */
 
-@keyframes slideUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .mask-line > span {
+    transform: none;
+  }
+
+  .float-soft,
+  .marquee-track {
+    animation: none;
+  }
+
+  /* Travelling dashes read as motion with no way to soften them — drop them
+     entirely and leave the connectors drawn. */
+  .flow-line {
+    display: none;
+  }
+
+  .draw-line {
+    stroke-dashoffset: 0;
+  }
+
+  .gear-spin,
+  .gear-spin-reverse,
+  .db-ring {
+    animation: none;
+  }
 }

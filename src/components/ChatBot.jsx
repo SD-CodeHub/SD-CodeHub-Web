@@ -1,164 +1,180 @@
 import { useState, useEffect, useRef } from "react";
 import { getBotReply } from "../utils/botEngine";
-import PopupAd from "../components/PopupAd"; // adjust path as needed
+import PopupAd from "./PopupAd";
 import logo from "../assets/sdchatboatlogo.png";
-import chatIcon from "../assets/pngtree-smart-chatbot-cartoon-clipart-png-image_9015126.png";
 
-import userImg from "../assets/istockphoto-2163722762-612x612-removebg-preview.png";
-import botImg from "../assets/Screenshot_2025-11-22_220452-removebg-preview.png";
+const GREETING =
+  "Hi — I’m the SD CodeHub assistant.\n\nAsk me about pricing, hosting, delivery time or anything else about working with us.";
+
+const suggestions = [
+  "Pricing",
+  "Hosting & domain",
+  "Admin panel",
+  "Delivery time",
+  "Maintenance",
+];
 
 export default function ChatBot() {
-    const [open, setOpen] = useState(false);
-    const [messages, setMessages] = useState([]);
-    const [input, setInput] = useState("");
+  const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    { role: "bot", content: GREETING },
+  ]);
+  const [input, setInput] = useState("");
 
-    const scrollRef = useRef(null);
+  const scrollRef = useRef(null);
+  const inputRef = useRef(null);
 
-    useEffect(() => {
-        scrollRef.current?.scrollTo({
-            top: scrollRef.current.scrollHeight,
-            behavior: "smooth",
-        });
-    }, [messages]);
+  useEffect(() => {
+    scrollRef.current?.scrollTo({
+      top: scrollRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages, open]);
 
-    const sendMessage = () => {
-        if (!input.trim()) return;
+  useEffect(() => {
+    if (open) inputRef.current?.focus();
+  }, [open]);
 
-        const userMsg = { role: "user", content: input };
-        const botMsg = { role: "bot", content: getBotReply(input) };
+  useEffect(() => {
+    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
 
-        setMessages((prev) => [...prev, userMsg, botMsg]);
-        setInput("");
-    };
+  const send = (text) => {
+    const value = (text ?? input).trim();
+    if (!value) return;
 
-    return (
-        <>
-            {/* DESKTOP BUTTON — RECTANGLE */}
-            <div
-                onClick={() => setOpen(!open)}
-                className="
-          hidden md:flex fixed bottom-6 right-6 
-          bg-white border border-black border-2 shadow-xl 
-          rounded-full cursor-pointer z-50
-          items-center gap-1 px-2 py-1 hover:scale-105 transition p-
-        "
-            >
-                <img src={chatIcon} className="w-10 h-10 rounded-full bg-white border" />
-                <span className="font-bold text-black text-sm p-0 m-0">Ask our bot</span>
-            </div>
+    setMessages((prev) => [
+      ...prev,
+      { role: "user", content: value },
+      { role: "bot", content: getBotReply(value) },
+    ]);
+    setInput("");
+  };
 
-            {/* MOBILE BUTTON — CIRCLE */}
-            <div
-                onClick={() => setOpen(!open)}
-                className="
-          md:hidden fixed bottom-6 right-6 w-16 h-16 
-          rounded-full overflow-hidden cursor-pointer 
-          bg-white border border-black border-2
-          shadow-xl flex items-center justify-center
-          hover:scale-105 transition-all z-50
-        "
-            >
-                <img src={chatIcon} className="w-10 h-10 object-contain" />
-            </div>
-
-            {/* CHAT WINDOW */}
-{open && (
-  <div
-    className="
-      fixed bottom-24 right-4 
-      w-[90vw] max-w-[360px]
-      bg-white rounded-2xl
-      border border-black shadow-[0_0_25px_rgba(0,0,0,0.25)]
-      flex flex-col z-50
-    "
-    style={{ height: "70vh", maxHeight: "520px", minHeight: "450px" }}
-  >
-    {/* HEADER */}
-    <div className="flex items-center justify-between p-4 bg-black text-white rounded-t-2xl">
-      <div className="flex items-center gap-3">
-        <img
-          src={logo}
-          className="w-10 h-10 rounded-full bg-white border border-black p-1"
-        />
-        <span className="font-semibold text-lg tracking-wide">
-          Customer Assistant
-        </span>
-      </div>
-
+  return (
+    <>
+      {/* Launcher */}
       <button
-        onClick={() => setOpen(false)}
-        className="text-white hover:text-gray-300 text-xl"
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls="sd-chat"
+        className="group fixed bottom-6 right-6 z-[95] flex items-center gap-3 border border-white/20 bg-ink px-4 py-3 text-sm shadow-2xl shadow-black/50 transition-colors duration-400 hover:border-accent hover:text-accent"
       >
-        ✖
+        <span
+          className="h-2 w-2 shrink-0 rounded-full bg-accent"
+          aria-hidden="true"
+        />
+        <span className="hidden sm:inline">
+          {open ? "Close assistant" : "Ask our assistant"}
+        </span>
+        <span className="sm:hidden">{open ? "Close" : "Ask"}</span>
       </button>
-    </div>
 
-    {/* POP-UP AD */}
-    <PopupAd />
-
-    {/* MESSAGES AREA */}
-    <div
-      ref={scrollRef}
-      className="flex-1 overflow-y-auto bg-white p-4 space-y-3 scrollbar-hide"
-    >
-      {messages.map((msg, i) => (
-        <div
-          key={i}
-          className={`flex items-end ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-        >
-          {/* BOT SIDE IMAGE */}
-          {msg.role === "bot" && (
-            <img
-              src={botImg}
-              className="w-8 h-8 rounded-full bg-white border mr-2"
-            />
-          )}
-
-          {/* MESSAGE BUBBLE */}
-          <div
-            className={`
-              p-3 max-w-[75%] text-[14px] leading-relaxed rounded-2xl
-              border border-black shadow-sm whitespace-pre-line
-              ${msg.role === "user"
-                ? "bg-black text-white rounded-br-none"
-                : "bg-white text-black rounded-bl-none"
-              }
-            `}
-          >
-            {msg.content}
-          </div>
-
-          {/* USER SIDE IMAGE */}
-          {msg.role === "user" && (
-            <img
-              src={userImg}
-              className="w-8 h-8 rounded-full bg-white border ml-2"
-            />
-          )}
-        </div>
-      ))}
-    </div>
-
-    {/* INPUT AREA */}
-    <div className="p-3 border-t flex gap-2 bg-gray-100 rounded-b-2xl">
-      <input
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-        className="flex-1 p-2 rounded-xl border border-black focus:outline-none text-black"
-        placeholder="Type your message..."
-      />
+      {/* Panel */}
       <div
-        onClick={sendMessage}
-        className="px-3 py-2 bg-black text-white rounded-xl hover:bg-opacity-80 transition"
+        id="sd-chat"
+        hidden={!open}
+        role="dialog"
+        aria-label="SD CodeHub assistant"
+        className="fixed bottom-24 right-4 z-[95] flex w-[calc(100vw-2rem)] max-w-sm flex-col border border-white/15 bg-ink-2 shadow-2xl shadow-black/60 fade-up sm:right-6"
+        style={{ height: "min(70vh, 33rem)" }}
       >
-        Send
+        {/* Header */}
+        <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
+          <div className="flex items-center gap-3">
+            <img
+              src={logo}
+              alt=""
+              className="h-8 w-8 object-contain mix-blend-screen invert"
+            />
+            <div>
+              <p className="font-display text-sm tracking-tight">
+                Customer Assistant
+              </p>
+              <p className="label text-[0.55rem]">Usually replies instantly</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label="Close assistant"
+            className="text-[var(--muted)] transition-colors hover:text-accent"
+          >
+            ✕
+          </button>
+        </div>
+
+        <PopupAd />
+
+        {/* Messages */}
+        <div
+          ref={scrollRef}
+          className="scrollbar-hide flex-1 space-y-3 overflow-y-auto px-4 py-4"
+        >
+          {messages.map((msg, i) => (
+            <div
+              key={i}
+              className={`flex ${
+                msg.role === "user" ? "justify-end" : "justify-start"
+              }`}
+            >
+              <div
+                className={`max-w-[85%] whitespace-pre-line px-4 py-3 text-[0.8125rem] leading-relaxed ${
+                  msg.role === "user"
+                    ? "bg-accent text-ink"
+                    : "border border-white/10 bg-ink text-[var(--text)]"
+                }`}
+              >
+                {msg.content}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Suggestions */}
+        <div className="scrollbar-hide flex gap-2 overflow-x-auto border-t border-white/10 px-4 py-3">
+          {suggestions.map((s) => (
+            <button
+              key={s}
+              type="button"
+              onClick={() => send(s)}
+              className="shrink-0 border border-white/15 px-3 py-1.5 font-mono text-[0.65rem] text-[var(--muted)] transition-colors hover:border-accent hover:text-accent"
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+
+        {/* Composer */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            send();
+          }}
+          className="flex gap-2 border-t border-white/10 p-3"
+        >
+          <label htmlFor="sd-chat-input" className="sr-only">
+            Message
+          </label>
+          <input
+            id="sd-chat-input"
+            ref={inputRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type your message…"
+            className="min-w-0 flex-1 border border-white/15 bg-ink px-3 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--muted)]/70 focus:border-accent focus:outline-none"
+          />
+          <button
+            type="submit"
+            className="bg-accent px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-white"
+          >
+            Send
+          </button>
+        </form>
       </div>
-    </div>
-  </div>
-)}
-
-
-        </>
-    );
+    </>
+  );
 }

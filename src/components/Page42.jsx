@@ -1,169 +1,181 @@
-import React from "react";
 import {
-    FaLightbulb, // Using solid version
-    FaHandshake, // More professional than FaHandsHelping
-    FaChartLine,
-    FaRegSmileBeam, // A slightly more modern smile
-    FaRocket,
-    FaShieldAlt,
-    FaCog, // Singular for a cog icon
-    FaCheckCircle, // For success/growth in "What We Offer"
-    FaCommentDots, // For communication
-} from "react-icons/fa"; // Importing relevant new icons
+  FaLightbulb,
+  FaHandshake,
+  FaChartLine,
+  FaRegSmileBeam,
+  FaRocket,
+  FaShieldAlt,
+  FaCog,
+  FaCommentDots,
+} from "react-icons/fa";
+import Reveal from "./ui/Reveal";
+import { Eyebrow, SectionHeader } from "./ui/Section";
 
-const Page42 = () => {
-    return (
-        <>
-            <section className="bg-gradient-to-b from-white via-gray-50 to-white text-gray-800 py-10 px-6 md:px-16 lg:px-24">
+const phases = [
+  {
+    n: "Phase 1",
+    title: "The Vision & Kickoff",
+    body: "It began with a simple idea — transforming a traditional workflow into a seamless, intelligent ecosystem. Our client approached us with a concept but no technical clarity. Through multiple discovery calls, we converted that idea into a roadmap powered by modern web architecture, AI automation, and human insight.",
+    tag: "Clarity through Collaboration",
+    tagIcon: FaLightbulb,
+    asideIcon: FaHandshake,
+    aside:
+      "From vision boards to technical blueprints — every decision was made with the client, not for them.",
+  },
+  {
+    n: "Phase 2",
+    title: "Facing the Storm",
+    body: "Midway through, we hit turbulence — unexpected API failures, data security conflicts, and shifting timelines. But instead of crumbling under pressure, our team rose stronger. We implemented backup workflows, automated deployments, and continuous testing to maintain product stability and client confidence.",
+    tag: "Resilience in Every Line of Code",
+    tagIcon: FaShieldAlt,
+    asideIcon: FaCog,
+    aside:
+      "Every issue we faced became a lesson. We didn’t just fix problems — we future-proofed the entire system to make sure they never happened again.",
+  },
+  {
+    n: "Phase 3",
+    title: "Launch & Beyond",
+    body: "When the platform went live, it wasn’t just a deployment — it was a moment of shared pride. The client’s confidence grew, and so did our relationship. Even post-launch, we continued to offer updates, insights, and performance audits to ensure their success stayed consistent.",
+    tag: "Success that Scales with Time",
+    tagIcon: FaChartLine,
+    asideIcon: FaRocket,
+    aside:
+      "What started as a project became a partnership — one that continues to grow through innovation, feedback, and mutual respect.",
+  },
+];
 
-                {/* ==== HERO SECTION ==== */}
-                <div className="max-w-5xl mx-auto text-center space-y-8">
-                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-                        Every Challenge Became a Chapter of Growth
+const offers = [
+  {
+    icon: FaRegSmileBeam,
+    title: "Client-Centric Approach",
+    desc: "Every feature is designed around the client’s real-world goals and needs, not assumptions.",
+  },
+  {
+    icon: FaCommentDots,
+    title: "Strong Communication",
+    desc: "Weekly updates, transparent reporting, and milestone reviews keep everyone aligned and confident.",
+  },
+  {
+    icon: FaChartLine,
+    title: "Continuous Improvement",
+    desc: "We never stop learning — each project refines our process and elevates the next.",
+  },
+];
+
+export default function Page42() {
+  return (
+    <div id="main">
+      {/* ================= Page hero ================= */}
+      <section className="relative overflow-hidden bg-ink pb-20 pt-36 md:pb-28 md:pt-44">
+        <div className="grid-field pointer-events-none absolute inset-0" aria-hidden="true" />
+        <div className="shell relative">
+          <Reveal>
+            <Eyebrow>Work &amp; process</Eyebrow>
+          </Reveal>
+
+          <Reveal as="h1" delay={80} className="display mt-8 max-w-4xl text-[clamp(2.4rem,6.2vw,4.75rem)]">
+            <span className="mask-line">
+              <span>Every challenge became</span>
+            </span>
+            <span className="mask-line">
+              <span style={{ transitionDelay: "100ms" }}>
+                a chapter of <span className="text-accent">growth.</span>
+              </span>
+            </span>
+          </Reveal>
+
+          <Reveal delay={160}>
+            <p className="lede mt-8 max-w-2xl text-base md:text-lg">
+              At SD CodeHub, we treat every project as a story — one filled with
+              challenges, breakthroughs, and the trust that binds it all
+              together. This is how we built, learned, and delivered — without
+              losing sight of what matters most: our client’s confidence.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ================= The three phases ================= */}
+      <section className="rule bg-ink-2 py-20 md:py-28 lg:py-32">
+        <div className="shell">
+          <ol className="space-y-px">
+            {phases.map((phase, i) => {
+              const TagIcon = phase.tagIcon;
+              const AsideIcon = phase.asideIcon;
+              return (
+                <Reveal
+                  as="li"
+                  key={phase.n}
+                  delay={i * 60}
+                  className="grid gap-10 border-t border-white/10 py-14 lg:grid-cols-12 lg:gap-16 lg:py-20"
+                >
+                  <div className="lg:col-span-7">
+                    <p className="label text-[0.6rem]">
+                      <span className="text-accent">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>{" "}
+                      / {phase.n}
+                    </p>
+                    <h2 className="display mt-5 text-[clamp(1.7rem,3.6vw,2.6rem)]">
+                      {phase.title}
                     </h2>
-                    <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-                        At <span className="font-semibold text-gray-900">SD CodeHub</span>, we treat every project as a story —
-                        one filled with challenges, breakthroughs, and the trust that binds it all together.
-                        This is how we built, learned, and delivered — without losing sight of what matters most:
-                        <span className="font-bold"> our client’s confidence.</span>
+                    <p className="lede mt-6 max-w-xl text-[0.95rem] md:text-base">
+                      {phase.body}
                     </p>
-                </div>
-
-                {/* ==== STORY SECTION ==== */}
-                <div className="max-w-6xl mx-auto mt-24 space-y-24">
-
-                    {/* ---- Phase 1 ---- */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                        <div className="space-y-6">
-                            <h3 className="text-3xl font-bold text-gray-900">Phase 1 — The Vision & Kickoff</h3>
-                            <p className="text-lg text-gray-700 leading-relaxed">
-                                It began with a simple idea — transforming a traditional workflow into a seamless, intelligent ecosystem.
-                                Our client approached us with a concept but no technical clarity.
-                                Through multiple discovery calls, we converted that idea into a roadmap powered by
-                                <span className="font-semibold"> modern web architecture, AI automation, and human insight.</span>
-                            </p>
-                            <div className="flex items-center gap-3 text-gray-800 font-medium">
-                                <FaLightbulb className="text-2xl text-gray-700" /> <span>Clarity through Collaboration</span>
-                            </div>
-                        </div>
-
-                        {/* Right Box - Professionalized Icon & Styling */}
-                        <div className="bg-gray-900 rounded-2xl text-white p-10 flex flex-col items-center text-center shadow-lg">
-                            <div className="bg-gray-700 p-4 rounded-full mb-4"> {/* Darker circle background */}
-                                <FaHandshake className="text-4xl text-white" /> {/* White icon for contrast */}
-                            </div>
-                            <p className="text-gray-300 leading-relaxed">
-                                From vision boards to technical blueprints — every decision was made *with* the client, not *for* them.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* ---- Phase 2 ---- */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:flex-row-reverse">
-                        <div className="space-y-6 order-2 md:order-1">
-                            <h3 className="text-3xl font-bold text-gray-900">Phase 2 — Facing the Storm</h3>
-                            <p className="text-lg text-gray-700 leading-relaxed">
-                                Midway through, we hit turbulence — unexpected API failures, data security conflicts,
-                                and shifting timelines. But instead of crumbling under pressure, our team rose stronger.
-                                We implemented backup workflows, automated deployments, and continuous testing
-                                to maintain product stability and client confidence.
-                            </p>
-                            <div className="flex items-center gap-3 text-gray-800 font-medium">
-                                <FaShieldAlt className="text-2xl text-gray-700" /> <span>Resilience in Every Line of Code</span>
-                            </div>
-                        </div>
-
-                        {/* Right Box - Professionalized Icon & Styling */}
-                        <div className="bg-gray-900 rounded-2xl p-10 flex flex-col items-center text-center text-gray-300 shadow-md order-1 md:order-2">
-                            <div className="bg-gray-700 p-4 rounded-full mb-4">
-                                <FaCog className="text-4xl text-white" /> {/* White cog icon */}
-                            </div>
-                            <p className="leading-relaxed">
-                                Every issue we faced became a lesson. We didn’t just fix problems —
-                                we future-proofed the entire system to make sure they never happened again.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* ---- Phase 3 ---- */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                        <div className="space-y-6">
-                            <h3 className="text-3xl font-bold text-gray-900">Phase 3 — Launch & Beyond</h3>
-                            <p className="text-lg text-gray-700 leading-relaxed">
-                                When the platform went live, it wasn’t just a deployment — it was a moment of shared pride.
-                                The client’s confidence grew, and so did our relationship.
-                                Even post-launch, we continued to offer updates, insights, and performance audits to ensure
-                                their success stayed consistent.
-                            </p>
-                            <div className="flex items-center gap-3 text-gray-800 font-medium">
-                                <FaChartLine className="text-2xl text-gray-700" /> <span>Success that Scales with Time</span>
-                            </div>
-                        </div>
-
-                        {/* Right Box - Professionalized Icon & Styling */}
-                        <div className="bg-gray-900 text-white rounded-2xl p-10 flex flex-col items-center text-center shadow-lg">
-                            <div className="bg-gray-700 p-4 rounded-full mb-4">
-                                <FaRocket className="text-4xl text-white" />
-                            </div>
-                            <p className="text-gray-300 leading-relaxed">
-                                What started as a project became a partnership — one that continues to grow
-                                through innovation, feedback, and mutual respect.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-
-                {/* ==== ATTRACTIONS / TAKEAWAYS ==== */}
-                <div className="max-w-6xl mx-auto text-center mt-32 space-y-8">
-                    <h3 className="text-4xl md:text-5xl font-bold text-gray-900">
-                        What We Offer
-                    </h3>
-                    <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
-                        At <span className="font-semibold text-gray-900">SD CodeHub</span>, we deliver more than just digital solutions —
-                        we provide <span className="font-semibold">scalable innovation, reliable performance,</span> and
-                        <span className="font-semibold"> long-term partnerships.</span>
-                        Every project we take on reflects our passion for technology and our commitment to helping businesses
-                        <span className="font-semibold text-gray-900"> grow, adapt, and succeed</span> in a competitive world.
+                    <p className="mt-8 inline-flex items-center gap-3 border border-white/15 px-4 py-2.5 font-mono text-xs tracking-wide text-accent">
+                      <TagIcon aria-hidden="true" />
+                      {phase.tag}
                     </p>
+                  </div>
 
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12 text-left">
-                        {/* Client-Centric Approach */}
-                        <div className="bg-white rounded-2xl shadow-md hover:shadow-xl p-8 transition border border-gray-100">
-                            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-800 mb-4">
-                                <FaRegSmileBeam className="text-2xl" /> {/* Adjusted icon size and color */}
-                            </div>
-                            <h4 className="text-xl font-semibold mb-2 text-gray-900">Client-Centric Approach</h4>
-                            <p className="text-gray-600">
-                                Every feature is designed around the client’s real-world goals and needs, not assumptions.
-                            </p>
-                        </div>
-                        {/* Strong Communication */}
-                        <div className="bg-white rounded-2xl shadow-md hover:shadow-xl p-8 transition border border-gray-100">
-                            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-800 mb-4">
-                                <FaCommentDots className="text-2xl" /> {/* New icon for communication */}
-                            </div>
-                            <h4 className="text-xl font-semibold mb-2 text-gray-900">Strong Communication</h4>
-                            <p className="text-gray-600">
-                                Weekly updates, transparent reporting, and milestone reviews keep everyone aligned and confident.
-                            </p>
-                        </div>
-                        {/* Continuous Improvement */}
-                        <div className="bg-white rounded-2xl shadow-md hover:shadow-xl p-8 transition border border-gray-100">
-                            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-800 mb-4">
-                                <FaChartLine className="text-2xl" /> {/* Adjusted icon size and color */}
-                            </div>
-                            <h4 className="text-xl font-semibold mb-2 text-gray-900">Continuous Improvement</h4>
-                            <p className="text-gray-600">
-                                We never stop learning — each project refines our process and elevates the next.
-                            </p>
-                        </div>
+                  <div className="lg:col-span-5">
+                    <div className="relative h-full border border-white/12 bg-ink p-8 md:p-10">
+                      <AsideIcon
+                        className="text-2xl text-accent"
+                        aria-hidden="true"
+                      />
+                      <p className="lede mt-6 text-[0.95rem]">{phase.aside}</p>
                     </div>
-                </div>
-            </section>
-        </>
-    );
-};
+                  </div>
+                </Reveal>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
 
-export default Page42;
+      {/* ================= What we offer ================= */}
+      <section className="rule bg-ink py-20 md:py-28 lg:py-32">
+        <div className="shell">
+          <SectionHeader
+            eyebrow="Takeaways"
+            title="What we offer"
+            lede="At SD CodeHub, we deliver more than just digital solutions — we provide scalable innovation, reliable performance, and long-term partnerships. Every project we take on reflects our passion for technology and our commitment to helping businesses grow, adapt, and succeed in a competitive world."
+          />
+
+          <div className="mt-16 grid gap-px border border-white/10 bg-white/10 md:mt-20 md:grid-cols-3">
+            {offers.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <Reveal
+                  key={item.title}
+                  delay={i * 90}
+                  className="group bg-ink p-8 transition-colors duration-500 hover:bg-ink-2 md:p-10"
+                >
+                  <Icon
+                    className="text-2xl text-[var(--muted)] transition-colors duration-500 group-hover:text-accent"
+                    aria-hidden="true"
+                  />
+                  <h3 className="mt-7 font-display text-xl tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="lede mt-3 text-sm">{item.desc}</p>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

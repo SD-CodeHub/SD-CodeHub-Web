@@ -1,99 +1,192 @@
-import React, { useState } from "react";
-import { HiOutlineMenuAlt3, HiX } from "react-icons/hi";
-import { NavLink } from "react-router-dom";
-import logo from "../assets/logo.png"; // replace with your logo path
+import { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import logo from "../assets/logo.png";
+import { ENQUIRY_FORM } from "./ui/Button";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleMenu = () => setIsOpen(!isOpen);
+const navItems = [
+  { name: "Home", path: "/", n: "01" },
+  { name: "About", path: "/about", n: "02" },
+  { name: "Services", path: "/services", n: "03" },
+  { name: "Work", path: "/portfolio", n: "04" },
+  { name: "Pricing", path: "/pricing", n: "05" },
+  { name: "Careers", path: "/careers", n: "06" },
+];
 
-  const navItems = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Services", path: "/services" },
-    { name: "Portfolio", path: "/portfolio" },
-    { name: "Pricing", path: "/pricing" },
-    { name: "Carrer", path: "/carrer" },
-  ];
+/** Black-on-white logo asset, keyed onto the ink background. */
+function Wordmark({ className = "" }) {
+  return (
+    <img
+      src={logo}
+      alt="SD CodeHub"
+      className={`object-contain mix-blend-screen invert ${className}`}
+    />
+  );
+}
+
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      const height =
+        document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(height > 0 ? (window.scrollY / height) * 100 : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Close the mobile panel on navigation and lock scroll while it is open.
+  useEffect(() => setOpen(false), [pathname]);
+
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = open ? "hidden" : prev;
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
+  useEffect(() => {
+    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
 
   return (
-    <nav className="bg-gray-100 backdrop-blur-md w-full fixed top-0 left-0 z-50 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 md:px-16 flex items-center justify-between h-20 relative">
+    <header
+      className={`fixed inset-x-0 top-0 z-[90] transition-all duration-500 ease-[cubic-bezier(.16,1,.3,1)] ${
+        scrolled || open
+          ? "border-b border-white/10 bg-ink/85 backdrop-blur-xl"
+          : "border-b border-transparent"
+      }`}
+    >
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:bg-accent focus:px-4 focus:py-2 focus:text-ink"
+      >
+        Skip to content
+      </a>
 
-        {/* Left: Logo */}
-        <div className="flex-shrink-0 absolute left-6 md:left-12">
-          <img src={logo} alt="Logo" className="h-25 w-auto object-contain" />
-        </div>
+      <div
+        className={`shell flex items-center justify-between transition-[height] duration-500 ease-[cubic-bezier(.16,1,.3,1)] ${
+          scrolled ? "h-16 md:h-16" : "h-20 md:h-24"
+        }`}
+      >
+        <NavLink to="/" aria-label="SD CodeHub — home" className="relative z-10">
+          <Wordmark
+            className={`w-auto transition-[height] duration-500 ease-[cubic-bezier(.16,1,.3,1)] ${
+              scrolled ? "h-9 md:h-10" : "h-11 md:h-14"
+            }`}
+          />
+        </NavLink>
 
-        {/* Center: Navigation Links */}
-        <div className="hidden md:flex space-x-10 mx-auto">
-          {navItems.map((item, index) => (
+        <nav aria-label="Primary" className="hidden items-center gap-9 lg:flex">
+          {navItems.map((item) => (
             <NavLink
-              key={index}
+              key={item.path}
               to={item.path}
               className={({ isActive }) =>
-                `text-gray-800 font-medium text-base relative group transition-all 
-                 ${isActive ? "text-black font-semibold" : "hover:text-black"}`
+                `link-underline text-sm tracking-tight transition-colors duration-300 ${
+                  isActive
+                    ? "text-accent"
+                    : "text-[var(--muted)] hover:text-[var(--text)]"
+                }`
               }
             >
               {item.name}
-              <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
             </NavLink>
           ))}
-        </div>
+        </nav>
 
-        {/* Right: Contact Button */}
-        <div className="absolute right-6 md:right-12 hidden md:block">
-          <NavLink
-            to="https://docs.google.com/forms/d/e/1FAIpQLSdwXjgxgZbFSsouidjZUw9MjPz2KbVdKBVEho5Y2B_LyGFY4Q/viewform?usp=header"
-            className="bg-gray-900 text-white px-5 py-2 rounded-full font-medium hover:bg-black transition-all duration-300 shadow-sm"
+        <div className="flex items-center gap-4">
+          <a
+            href={ENQUIRY_FORM}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden border border-white/20 px-5 py-2.5 text-sm tracking-tight transition-colors duration-400 hover:border-accent hover:text-accent lg:inline-block"
           >
-            Contact
-          </NavLink>
-        </div>
+            Start a project
+          </a>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden ml-auto">
-          <button onClick={toggleMenu} className="text-white focus:outline-none">
-            {isOpen ? <HiX className="w-7 h-7" /> : <HiOutlineMenuAlt3 className="w-7 h-7" />}
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="relative z-10 flex h-10 w-10 flex-col items-center justify-center gap-[6px] lg:hidden"
+          >
+            <span
+              className={`h-px w-6 bg-[var(--text)] transition-transform duration-400 ${
+                open ? "translate-y-[3.5px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`h-px w-6 bg-[var(--text)] transition-transform duration-400 ${
+                open ? "-translate-y-[3.5px] -rotate-45" : ""
+              }`}
+            />
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200 shadow-md">
-          <ul className="flex flex-col items-center space-y-4 py-6">
-            {navItems.map((item, index) => (
-              <li key={index}>
+      {/* Scroll progress hairline */}
+      <div
+        aria-hidden="true"
+        className="h-px origin-left bg-accent transition-transform duration-150"
+        style={{ transform: `scaleX(${progress / 100})` }}
+      />
+
+      {/* Mobile panel */}
+      <div
+        id="mobile-nav"
+        hidden={!open}
+        className={`fixed inset-x-0 bottom-0 z-0 overflow-y-auto bg-ink px-5 pb-12 pt-6 lg:hidden ${
+          scrolled ? "top-16" : "top-20 md:top-24"
+        }`}
+      >
+        <nav aria-label="Mobile">
+          <ul className="divide-y divide-white/10 border-y border-white/10">
+            {navItems.map((item, i) => (
+              <li key={item.path}>
                 <NavLink
                   to={item.path}
-                  onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
-                    `text-gray-700 font-medium text-lg transition ${
-                      isActive ? "text-black font-semibold" : "hover:text-black"
+                    `flex items-baseline gap-5 py-5 font-display text-3xl tracking-tight transition-colors ${
+                      isActive ? "text-accent" : "text-[var(--text)]"
                     }`
                   }
+                  style={{ animationDelay: `${i * 45}ms` }}
                 >
+                  <span className="label text-[0.6rem]">{item.n}</span>
                   {item.name}
                 </NavLink>
               </li>
             ))}
-
-            <li>
-              <NavLink
-                to="https://docs.google.com/forms/d/e/1FAIpQLSdwXjgxgZbFSsouidjZUw9MjPz2KbVdKBVEho5Y2B_LyGFY4Q/viewform?usp=header"
-                onClick={() => setIsOpen(false)}
-                className="bg-gray-900 text-white px-6 py-2 rounded-full font-medium hover:bg-black transition-all duration-300"
-              >
-                Contact
-              </NavLink>
-            </li>
           </ul>
-        </div>
-      )}
-    </nav>
-  );
-};
+        </nav>
 
-export default Navbar;
+        <a
+          href={ENQUIRY_FORM}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-8 flex w-full items-center justify-center gap-3 bg-accent px-6 py-4 font-medium text-ink"
+        >
+          Start a project <span aria-hidden="true">→</span>
+        </a>
+
+        <div className="mt-10 space-y-1 text-sm text-[var(--muted)]">
+          <p>codehubsd@gmail.com</p>
+          <p>+91 99309 94315</p>
+          <p>Navi Mumbai, Maharashtra</p>
+        </div>
+      </div>
+    </header>
+  );
+}

@@ -1,66 +1,71 @@
-import React from "react";
+import Reveal from "./ui/Reveal";
+import { Eyebrow } from "./ui/Section";
 
-const Page14 = () => {
-  const sections = [
-    {
-      title: "Powering Digital Transformation",
-      description:
-        "Our team of experts guides organizations through their digital transformation journey, leveraging innovative technologies to optimize processes, improve efficiency, and create competitive advantage. We focus on measurable results that truly transform businesses.",
-    },
-    {
-      title: "Driving Business Growth",
-      description:
-        "We help companies unlock new revenue streams and expand market presence through data-driven strategies, process automation, and customer-centric solutions. Our approach ensures sustainable growth that aligns with your long-term objectives.",
-    },
-    {
-      title: "Empowering Businesses to Succeed",
-      description:
-        "By combining technical expertise with industry insights, we empower companies to make informed decisions, adopt cutting-edge technologies, and build scalable solutions that drive operational excellence and strategic success.",
-    },
-  ];
+const pillars = [
+  {
+    title: "Powering Digital Transformation",
+    description:
+      "Our team of experts guides organizations through their digital transformation journey, leveraging innovative technologies to optimize processes, improve efficiency, and create competitive advantage. We focus on measurable results that truly transform businesses.",
+  },
+  {
+    title: "Driving Business Growth",
+    description:
+      "We help companies unlock new revenue streams and expand market presence through data-driven strategies, process automation, and customer-centric solutions. Our approach ensures sustainable growth that aligns with your long-term objectives.",
+  },
+  {
+    title: "Empowering Businesses to Succeed",
+    description:
+      "By combining technical expertise with industry insights, we empower companies to make informed decisions, adopt cutting-edge technologies, and build scalable solutions that drive operational excellence and strategic success.",
+  },
+];
 
+export default function Page14() {
   return (
-    <section className="bg-white py-16 px-6 sm:px-12 lg:px-24">
-      {/* Heading */}
-      <div className="max-w-4xl mx-auto text-center mb-16">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-4">
-          Revolutionizing the Tech Landscape
-        </h1>
-        <p className="text-gray-700 text-lg sm:text-xl md:text-2xl leading-relaxed">
-          We help businesses achieve excellence through innovative solutions, industry expertise, and a focus on measurable results.
-        </p>
-      </div>
-
-      {/* Sections */}
-      <div className="max-w-7xl mx-auto flex flex-col gap-16">
-        {sections.map((section, index) => (
-          <div
-            key={index}
-            className={`flex flex-col md:flex-row items-start md:items-center ${
-              index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-            } gap-8`}
-          >
-            {/* Number / Step Indicator */}
-            <div className="flex-shrink-0">
-              <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-400">
-                {`0${index + 1}`}
-              </div>
-            </div>
-
-            {/* Content */}
-            <div className="flex-1 space-y-4">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900">
-                {section.title}
-              </h2>
-              <p className="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed">
-                {section.description}
-              </p>
+    <section className="rule relative bg-ink py-20 md:py-28 lg:py-32">
+      <div className="shell">
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+          {/* Sticky statement — stays put while the pillars scroll past it. */}
+          <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-32">
+              <Reveal>
+                <Eyebrow index="04">Impact</Eyebrow>
+              </Reveal>
+              <Reveal as="h2" delay={80} className="display mt-7 text-[clamp(2rem,4.6vw,3.5rem)]">
+                Revolutionizing the tech landscape
+              </Reveal>
+              <Reveal delay={160}>
+                <p className="lede mt-7 max-w-md text-base md:text-lg">
+                  We help businesses achieve excellence through innovative
+                  solutions, industry expertise, and a focus on measurable
+                  results.
+                </p>
+              </Reveal>
             </div>
           </div>
-        ))}
+
+          <div className="lg:col-span-7">
+            <ol className="divide-y divide-white/10 border-t border-white/10">
+              {pillars.map((item, i) => (
+                <Reveal as="li" key={item.title} delay={i * 90} className="group py-10 md:py-14">
+                  <div className="flex items-start gap-6 md:gap-10">
+                    <span className="font-mono text-sm text-accent">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <h3 className="font-display text-2xl tracking-tight md:text-[1.75rem]">
+                        {item.title}
+                      </h3>
+                      <p className="lede mt-4 text-[0.95rem] md:text-base">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </ol>
+          </div>
+        </div>
       </div>
     </section>
   );
-};
-
-export default Page14;
+}

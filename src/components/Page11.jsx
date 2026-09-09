@@ -1,58 +1,137 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from "react";
+import CTA, { ENQUIRY_FORM } from "./ui/Button";
+import Marquee from "./ui/Marquee";
+import Reveal from "./ui/Reveal";
+import ArchitectureDiagram from "./ui/ArchitectureDiagram";
 
-const sampleImage =
-  'https://static.vecteezy.com/system/resources/previews/054/553/708/non_2x/informatics-and-logistics-solutions-illustration-with-coding-in-a-tech-design-vector.jpg';
+const capabilities = [
+  "AI Automation & Integration",
+  "MERN Stack Development",
+  "Full-Stack Solutions",
+  "UI/UX Design & Prototyping",
+  "Technical Consulting",
+];
 
-const FullScreenTopStartPage = () => {
-  const navigate = useNavigate();
+export default function Hero() {
+  const frameRef = useRef(null);
+
+  // Gentle pointer parallax on the diagram (desktop pointers only).
+  useEffect(() => {
+    const node = frameRef.current;
+    if (!node || !window.matchMedia("(pointer: fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const onMove = (e) => {
+      const r = node.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      node.style.transform = `perspective(1600px) rotateY(${x * 3}deg) rotateX(${-y * 3}deg)`;
+    };
+    const reset = () => {
+      node.style.transform = "";
+    };
+
+    node.addEventListener("pointermove", onMove);
+    node.addEventListener("pointerleave", reset);
+    return () => {
+      node.removeEventListener("pointermove", onMove);
+      node.removeEventListener("pointerleave", reset);
+    };
+  }, []);
 
   return (
-    <div className="w-screen md:w-[95vw] h-screen md:h-[80vh] bg-white flex items-center justify-center px-6">
-      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <section
+      id="main"
+      className="relative flex min-h-svh flex-col overflow-hidden bg-ink pt-24 md:pt-28"
+      aria-label="Introduction"
+    >
+      <div className="grid-field pointer-events-none absolute inset-0" aria-hidden="true" />
+      <div className="noise" aria-hidden="true" />
+      <div
+        className="pointer-events-none absolute -top-40 right-0 h-[36rem] w-[36rem] rounded-full bg-accent/8 blur-[140px]"
+        aria-hidden="true"
+      />
 
-        {/* Left Side - Text */}
-        <div className="flex flex-col justify-center items-start gap-6">
+      <div className="shell relative flex flex-1 flex-col justify-center py-8 md:py-10">
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+          {/* ---- Statement ---- */}
+          <div className="lg:col-span-6">
+            <p className="label flex items-center gap-3 fade-up">
+              <span className="h-1.5 w-1.5 bg-accent" aria-hidden="true" />
+              The Standard of Digital Excellence
+            </p>
 
-          <p className="text-sm font-light tracking-widest uppercase text-gray-500">
-            The Standard of Digital Excellence
-          </p>
+            <Reveal
+              as="h1"
+              className="display mt-5 text-[clamp(2.25rem,5.6vw,4.25rem)]"
+            >
+              <span className="mask-line">
+                <span>Mastering the art</span>
+              </span>
+              <span className="mask-line">
+                <span style={{ transitionDelay: "110ms" }}>of digital</span>
+              </span>
+              <span className="mask-line">
+                <span style={{ transitionDelay: "220ms" }} className="text-accent">
+                  creation.
+                </span>
+              </span>
+            </Reveal>
 
-          <div className="w-16 h-0.5 bg-yellow-700 opacity-80"></div>
+            <p
+              className="lede mt-6 max-w-xl text-[0.95rem] md:text-base fade-up"
+              style={{ animationDelay: "260ms" }}
+            >
+              SD CodeHub builds AI automation, MERN and full-stack systems, UI/UX
+              design and technical consulting for businesses that need software
+              which actually holds up in production.
+            </p>
 
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight">
-            SD CodeHub: <br />
-            Mastering the Art of Digital Creation
-          </h1>
+            <div
+              className="mt-7 flex flex-col gap-3 sm:flex-row fade-up"
+              style={{ animationDelay: "340ms" }}
+            >
+              <CTA href={ENQUIRY_FORM} size="lg">
+                Start a project
+              </CTA>
+              <CTA to="/services" variant="ghost" size="lg" arrow={false}>
+                View our services
+              </CTA>
+            </div>
 
-          <p className="text-lg text-gray-700 max-w-md border-l-4 border-yellow-700 pl-4 italic">
-            "Excellence is not an act, but a habit."
-            We craft enduring digital solutions built on precision, reliability, and timeless quality.
-          </p>
+            <blockquote
+              className="mt-8 border-l border-accent/50 pl-5 text-sm italic text-[var(--muted)] fade-up"
+              style={{ animationDelay: "420ms" }}
+            >
+              “Excellence is not an act, but a habit.” We craft enduring digital
+              solutions built on precision, reliability, and timeless quality.
+            </blockquote>
+          </div>
 
-          <button
-            onClick={() => navigate('/services')}
-            className="bg-gray-900 text-white border-2 border-transparent text-lg font-medium px-10 py-3 mt-4 tracking-wider transition duration-300 hover:bg-white hover:text-gray-900 hover:border-gray-900 shadow-lg rounded-md"
-          >
-            View Our Services
-          </button>
+          {/* ---- The stack we build ---- */}
+          <div className="lg:col-span-6">
+            <div
+              ref={frameRef}
+              className="transition-transform duration-500 ease-out"
+            >
+              <ArchitectureDiagram />
+            </div>
+          </div>
         </div>
 
-        {/* Right Side - Smaller Image */}
-       <div className="flex justify-center">
-  <div className="w-full max-w-xl">
-    <img
-      src={sampleImage}
-      alt="Digital Showcase"
-      className="w-full h-auto rounded-xl object-cover"
-    />
-  </div>
-</div>
-
-
+        {/* ---- Scroll cue ---- */}
+        <div className="mt-10 flex items-center gap-4">
+          <span
+            className="scroll-hint relative h-8 w-px overflow-hidden bg-white/12"
+            aria-hidden="true"
+          />
+          <span className="label text-[0.6rem]">Scroll to explore</span>
+        </div>
       </div>
-    </div>
-  );
-};
 
-export default FullScreenTopStartPage;
+      <div className="border-t border-white/10 py-4">
+        <Marquee items={capabilities} />
+      </div>
+    </section>
+  );
+}

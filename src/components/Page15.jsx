@@ -1,55 +1,87 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Img1 from '../assets/image14.webp'; // full left-side image
+import Reveal from "./ui/Reveal";
+import CTA from "./ui/Button";
+import { Eyebrow } from "./ui/Section";
+import ProcessImg from "../assets/image14.webp";
 
-const Page15 = () => {
-  const navigate = useNavigate();
+const steps = [
+  { name: "Ideate", desc: "We start with your vision and define clear goals." },
+  { name: "Design & Develop", desc: "Our experts craft seamless, scalable solutions." },
+  { name: "Test & Deploy", desc: "We ensure quality and launch with confidence." },
+  { name: "Support & Grow", desc: "Continuous improvement and lasting partnerships." },
+];
 
+export default function Page15() {
   return (
-    <section className="min-h-screen bg-white flex flex-col lg:flex-row items-center lg:items-stretch overflow-hidden">
-      
-      {/* Left Column */}
-      <div className="flex-1 relative w-full h-[50vh] lg:h-auto">
-        <img
-          src={Img1}
-          alt="Main Left"
-          className="w-full h-full object-cover lg:rounded-r-2xl rounded-none"
-        />
-      </div>
+    <section className="rule relative bg-ink-2">
+      <div className="grid lg:grid-cols-2">
+        {/* ---- Full-bleed image half ---- */}
+        <div className="relative min-h-[46vh] overflow-hidden lg:min-h-[42rem]">
+          <img
+            src={ProcessImg}
+            alt="The SD CodeHub team at work on a client build"
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-ink/60 via-ink/10 to-ink-2/90"
+            aria-hidden="true"
+          />
+        </div>
 
-      {/* Right Column: Text + List + Button */}
-      <div className="flex-1 flex flex-col justify-center items-start px-6 sm:px-10 md:px-16 py-12 bg-white space-y-6">
-        {/* Heading */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-          Our Methodology <br className="hidden sm:block" /> 
-          for Building Exceptional Software
-        </h2>
+        {/* ---- Method half ---- */}
+        <div className="flex items-center px-5 py-20 md:px-12 lg:px-16 xl:px-20">
+          <div className="w-full max-w-xl">
+            <Reveal>
+              <Eyebrow index="05">Methodology</Eyebrow>
+            </Reveal>
 
-        {/* Description */}
-        <p className="text-gray-600 text-sm sm:text-base md:text-lg max-w-lg leading-relaxed">
-          At SD CodeHub, our development process is guided by collaboration, innovation, 
-          and precision. We combine cutting-edge technology with creative thinking 
-          to deliver scalable and efficient digital solutions tailored to our clients’ goals.
-        </p>
+            <Reveal as="h2" delay={80} className="display mt-7 text-[clamp(1.9rem,4vw,3rem)]">
+              Our methodology for building exceptional software
+            </Reveal>
 
-        {/* List */}
-        <ul className="text-gray-700 text-base md:text-lg space-y-2">
-          <li><span className="font-medium">Ideate</span> — We start with your vision and define clear goals.</li>
-          <li><span className="font-medium">Design & Develop</span> — Our experts craft seamless, scalable solutions.</li>
-          <li><span className="font-medium">Test & Deploy</span> — We ensure quality and launch with confidence.</li>
-          <li><span className="font-medium">Support & Grow</span> — Continuous improvement and lasting partnerships.</li>
-        </ul>
+            <Reveal delay={140}>
+              <p className="lede mt-6 text-[0.95rem] md:text-base">
+                At SD CodeHub, our development process is guided by
+                collaboration, innovation, and precision. We combine
+                cutting-edge technology with creative thinking to deliver
+                scalable and efficient digital solutions tailored to our
+                clients’ goals.
+              </p>
+            </Reveal>
 
-        {/* Button */}
-        <button
-          onClick={() => navigate('/about')}
-          className="mt-4 bg-gray-900 text-white text-sm sm:text-base px-6 py-2.5 rounded-full hover:bg-gray-800 transition-all shadow-md"
-        >
-          Learn More Us
-        </button>
+            <ol className="mt-10 space-y-0 divide-y divide-white/10 border-y border-white/10">
+              {steps.map((step, i) => (
+                <Reveal
+                  as="li"
+                  key={step.name}
+                  delay={180 + i * 70}
+                  className="group flex items-baseline gap-5 py-5 transition-colors duration-300 hover:text-accent"
+                >
+                  <span className="label shrink-0 text-[0.6rem]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span>
+                    <span className="font-display text-lg tracking-tight">
+                      {step.name}
+                    </span>
+                    <span className="ml-2 text-sm text-[var(--muted)] transition-colors group-hover:text-[var(--muted)]">
+                      — {step.desc}
+                    </span>
+                  </span>
+                </Reveal>
+              ))}
+            </ol>
+
+            <Reveal delay={480}>
+              <div className="mt-10">
+                <CTA to="/about" variant="ghost">
+                  Learn more about us
+                </CTA>
+              </div>
+            </Reveal>
+          </div>
+        </div>
       </div>
     </section>
   );
-};
-
-export default Page15;
+}
