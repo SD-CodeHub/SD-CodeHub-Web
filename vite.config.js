@@ -4,7 +4,10 @@ import tailwindcss from '@tailwindcss/vite'
 import sitemap from 'vite-plugin-sitemap'
 
 export default defineConfig({
-  base: '/', // IMPORTANT
+  // Every host serves this site from the domain root: Netlify, and GitHub
+  // Pages via the sdcodehub.tech custom domain (public/CNAME). Do not change
+  // this to a subpath unless the custom domain is removed.
+  base: '/',
 
   plugins: [
     react(),
